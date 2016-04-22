@@ -6,14 +6,20 @@ import java.util.Map;
 public class Bytecode {
     private LinesOfCode fullcode;
     private Map<String, LinesOfCode> functions;
+    private LinesOfCode globalDeclaration;
 
-    Bytecode(LinesOfCode fullcode, Map<String, LinesOfCode> functions){
+    Bytecode(LinesOfCode fullcode, LinesOfCode globalDeclaration, Map<String, LinesOfCode> functions){
         this.fullcode = fullcode;
+        this.globalDeclaration = globalDeclaration;
         this.functions = functions;
     }
 
     public  LinesOfCode getFullcode(){
         return this.fullcode;
+    }
+
+    public  LinesOfCode getGlobalDeclaration(){
+        return this.globalDeclaration;
     }
 
     public  Map<String, LinesOfCode> getFunctions(){

@@ -8,9 +8,12 @@ public class ActivationFrame {
     Symbol returnValue;
     Stack<Block> blockStack;
     Stack<Symbol> operandStack;
+    String functionName;
 
-    ActivationFrame(){
+    ActivationFrame(String name){
         blockStack = new Stack<>();
         operandStack = new Stack<>();
+        returnValue = new Symbol();
+        functionName = name;
     }
 }

@@ -10,6 +10,7 @@ public class GPSCPU {
     Stack<Symbol> globalOperandStack;
     private static GPSCPU instance;
     Bytecode bytecode;
+    private static int ip;
 
 
     GPSCPU(){
@@ -28,7 +29,147 @@ public class GPSCPU {
 
     public void execute(){
         System.out.println("Executing bytecode...");
-        printByteCode();
+        // printByteCode();
+        if(bytecode.getGlobalDeclaration().code.size() != 0){
+            System.out.println(bytecode.getGlobalDeclaration().code.size());
+            executeCode(bytecode.getGlobalDeclaration().code);
+        }else{
+            System.out.println("No global declarations found...");
+        }
+
+        if(bytecode.getFunctions().get("main").code.size() != 0){
+            executeCode(bytecode.getFunctions().get("main").code);
+        }else{
+            System.out.println("Function main is empty!");
+        }
+    }
+
+    public void executeCode(ArrayList<String> code){
+        System.out.println(code);
+        /*
+        for(Opcode o : Opcode.values()){
+            String t = o.name();
+            System.out.println(t);
+        }
+        */
+        for(String line: code){
+            String[] tokens = line.split(" ");
+            System.out.println("token extracted: " + tokens[0]);
+            if(isValidOpcode(tokens[0])){
+                System.out.println("Valid opcode found");
+                Opcode opcode = getOpcode(tokens[0]);
+                System.out.println("Identified opcode: " + opcode);
+                switch (opcode){
+                    case ISTORE:
+                        System.out.println(opcode.name());
+                        break;
+                    case BSTORE:
+                        System.out.println(opcode.name());
+                        break;
+                    case STORE:
+                        System.out.println(opcode.name());
+                        break;
+                    case ASSIGN:
+                        System.out.println(opcode.name());
+                        break;
+                    case ADD:
+                        System.out.println(opcode.name());
+                        break;
+                    case SUB:
+                        System.out.println(opcode.name());
+                        break;
+                    case MUL:
+                        System.out.println(opcode.name());
+                        break;
+                    case EQ:
+                        System.out.println(opcode.name());
+                        break;
+                    case GT:
+                        System.out.println(opcode.name());
+                        break;
+                    case LT:
+                        System.out.println(opcode.name());
+                        break;
+                    case OR:
+                        System.out.println(opcode.name());
+                        break;
+                    case LOOP_START:
+                        System.out.println(opcode.name());
+                        break;
+                    case LOOP_END:
+                        System.out.println(opcode.name());
+                        break;
+                    case FUNC_START:
+                        System.out.println(opcode.name());
+                        break;
+                    case FUNC_END:
+                        System.out.println(opcode.name());
+                        break;
+                    case TRETURN:
+                        System.out.println(opcode.name());
+                        break;
+                    case PARAM:
+                        System.out.println(opcode.name());
+                        break;
+                    case RETURN:
+                        System.out.println(opcode.name());
+                        break;
+                    case CALL:
+                        System.out.println(opcode.name());
+                        break;
+                    case PRINT:
+                        System.out.println(opcode.name());
+                        break;
+                    case IDEC:
+                        System.out.println(opcode.name());
+                        break;
+                    case BDEC:
+                        System.out.println(opcode.name());
+                        break;
+                    case IF_START:
+                        System.out.println(opcode.name());
+                        break;
+                    case IF_END:
+                        System.out.println(opcode.name());
+                        break;
+                    case IF_BLOCK_START:
+                        System.out.println(opcode.name());
+                        break;
+                    case IF_BLOCK_END:
+                        System.out.println(opcode.name());
+                        break;
+                    case ELSE_BLOCK_START:
+                        System.out.println(opcode.name());
+                        break;
+                    case ELSE_BLOCK_END:
+                        System.out.println(opcode.name());
+                        break;
+                    case ILLEGAL:
+                        System.out.println(opcode.name());
+                        break;
+                }
+            }
+        }
+    }
+
+    public boolean isValidOpcode(String str){
+        boolean valid = false;
+
+        for(Opcode o: Opcode.values()){
+            if(o.name().equals(str.toUpperCase()))
+                valid = true;
+        }
+        return valid;
+    }
+
+    public Opcode getOpcode(String token){
+        Opcode tokenOpcode = Opcode.ILLEGAL;
+        for(Opcode opcode: Opcode.values()){
+            if(opcode.name().equals(token.toUpperCase())) {
+                tokenOpcode = opcode;
+            }
+        }
+        return tokenOpcode;
     }
 
     public void printByteCode(){
@@ -49,3 +190,5 @@ public class GPSCPU {
         }
     }
 }
+
+

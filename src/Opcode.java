@@ -29,16 +29,6 @@ public enum Opcode {
     IF_BLOCK_START,
     IF_BLOCK_END,
     ELSE_BLOCK_START,
-    ELSE_BLOCK_END;
-
-    public boolean isValidOpcode(String str){
-        boolean valid = false;
-
-        for(Opcode o: Opcode.values()){
-            if(o.equals(str.toUpperCase()))
-                valid = true;
-        }
-
-        return valid;
-    }
+    ELSE_BLOCK_END,
+    ILLEGAL;
 }

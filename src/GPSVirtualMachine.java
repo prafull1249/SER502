@@ -37,39 +37,44 @@ public class GPSVirtualMachine {
 
         LinesOfCode fullcode = new LinesOfCode();
         Map<String, LinesOfCode> functions = new HashMap<String, LinesOfCode>();
+        LinesOfCode globalDeclaration = new LinesOfCode();
 
         try{
             BufferedReader br = new BufferedReader(new FileReader(filepath));
             String line = "";
+
             while ((line = br.readLine()) != null) {
-                if (line.startsWith(Opcode.FUNC_START.toString())){
-                    //System.out.println("got a new func");
+                if(!(line.isEmpty() || line.trim().equals("") || line.trim().equals("\n"))){
+                    if (line.startsWith(Opcode.FUNC_START.toString())){
+                        //System.out.println("got a new func");
 
-                    String[] tokens = line.split(" ");
-                    String name = tokens[1];
+                        String[] tokens = line.split(" ");
+                        String name = tokens[1];
 
-                    LinesOfCode functionCode = new LinesOfCode();
-                    //System.out.println("Adding new line: " + line);
-                    functionCode.code.add(line);
-                    fullcode.code.add(line);
-                    boolean addToFunction = true;
-                    while(addToFunction){
-                        line = br.readLine();
-                        if(line.startsWith(Opcode.FUNC_END.toString())){
-                            addToFunction = false;
-                            //System.out.println("Adding new line: " + line);
-                            functionCode.code.add(line);
-                            fullcode.code.add(line);
-                        }else{
-                            //System.out.println("Adding new line: " + line);
-                            functionCode.code.add(line);
-                            fullcode.code.add(line);
+                        LinesOfCode functionCode = new LinesOfCode();
+                        //System.out.println("Adding new line: " + line);
+                        functionCode.code.add(line);
+                        fullcode.code.add(line);
+                        boolean addToFunction = true;
+                        while(addToFunction){
+                            line = br.readLine();
+                            if(line.startsWith(Opcode.FUNC_END.toString())){
+                                addToFunction = false;
+                                //System.out.println("Adding new line: " + line);
+                                functionCode.code.add(line);
+                                fullcode.code.add(line);
+                            }else{
+                                //System.out.println("Adding new line: " + line);
+                                functionCode.code.add(line);
+                                fullcode.code.add(line);
+                            }
                         }
-                    }
 
-                    functions.put(name, functionCode);
-                }else{
-                    fullcode.code.add(line);
+                        functions.put(name, functionCode);
+                    }else{
+                        fullcode.code.add(line);
+                        globalDeclaration.code.add(line);
+                    }
                 }
             }
 
@@ -80,6 +85,6 @@ public class GPSVirtualMachine {
             System.out.println("Error in parsing the file" + e.getMessage());
         }
 
-        return new Bytecode(fullcode, functions);
+        return new Bytecode(fullcode, globalDeclaration, functions);
     }
 }
