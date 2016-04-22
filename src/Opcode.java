@@ -33,5 +33,6 @@ public enum Opcode {
     BPARAM,
     LTE,
     GTE,
+    OR,
     ILLEGAL;
 }

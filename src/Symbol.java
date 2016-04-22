@@ -2,6 +2,8 @@
  * Created by Satyam on 20-04-2016.
  */
 public class Symbol {
+    // type = 0 for int
+    // type = 1 for bool
     private int type;
     private int value;
 
@@ -28,7 +30,7 @@ public class Symbol {
     }
 
     Symbol(int type){
-         this.type = type;
+        this.type = type;
     }
 
     Symbol(){
