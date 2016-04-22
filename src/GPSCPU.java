@@ -54,98 +54,108 @@ public class GPSCPU {
         */
         for(String line: code){
             String[] tokens = line.split(" ");
-            System.out.println("token extracted: " + tokens[0]);
+            // System.out.println("token extracted: " + tokens[0]);
             if(isValidOpcode(tokens[0])){
-                System.out.println("Valid opcode found");
+                // System.out.println("Valid opcode found");
                 Opcode opcode = getOpcode(tokens[0]);
-                System.out.println("Identified opcode: " + opcode);
+                // System.out.println("Identified opcode: " + opcode);
                 switch (opcode){
                     case ISTORE:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case BSTORE:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case STORE:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case ASSIGN:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case ADD:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case SUB:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case MUL:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case EQ:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case GT:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case LT:
-                        System.out.println(opcode.name());
-                        break;
-                    case OR:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case LOOP_START:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case LOOP_END:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case FUNC_START:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case FUNC_END:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case TRETURN:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case PARAM:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case RETURN:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case CALL:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case PRINT:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case IDEC:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case BDEC:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case IF_START:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case IF_END:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case IF_BLOCK_START:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case IF_BLOCK_END:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case ELSE_BLOCK_START:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
                     case ELSE_BLOCK_END:
-                        System.out.println(opcode.name());
+                        System.out.println("executing case:" + opcode.name());
                         break;
+                    case IPARAM:
+                        System.out.println("executing case:" + opcode.name());
+                        break;
+                    case BPARAM:
+                        System.out.println("executing case:" + opcode.name());
+                        break;
+                    case LTE:
+                        System.out.println("executing case:" + opcode.name());
+                        break;
+                    case GTE:
+                        System.out.println("executing case:" + opcode.name());
+                        break;
+
                     case ILLEGAL:
-                        System.out.println(opcode.name());
+                        System.out.println("Illegal opcode found... Exiting code");
                         break;
                 }
             }
@@ -173,7 +183,7 @@ public class GPSCPU {
     }
 
     public void printByteCode(){
-        System.out.println("Printing bytecode...");
+        // System.out.println("Printing bytecode...");
 
         Set<Map.Entry<String, LinesOfCode>> entries = bytecode.getFunctions().entrySet();
         Iterator<Map.Entry<String, LinesOfCode>> it = entries.iterator();

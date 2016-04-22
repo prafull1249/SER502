@@ -12,7 +12,6 @@ public enum Opcode {
     EQ,
     GT,
     LT,
-    OR,
     LOOP_START,
     LOOP_END,
     FUNC_START,
@@ -30,5 +29,9 @@ public enum Opcode {
     IF_BLOCK_END,
     ELSE_BLOCK_START,
     ELSE_BLOCK_END,
+    IPARAM,
+    BPARAM,
+    LTE,
+    GTE,
     ILLEGAL;
 }
