@@ -87,4 +87,45 @@ public class GPSVirtualMachine {
 
         return new Bytecode(fullcode, globalDeclaration, functions);
     }
+
+    // Method to parse the lines and generate function objects
+    public void generateFunctions(String filepath){
+        Map<String, Function> functions = new HashMap<String, Function>();
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(filepath));
+            String line = "";
+            Function currFunc;
+            while ((line = br.readLine()) != null) {
+                if(!(line.isEmpty() || line.trim().equals("") || line.trim().equals("\n"))){
+                    if (line.startsWith(Opcode.FUNC_START.toString())){
+                        String[] tokens = line.split(" ");
+                        String name = tokens[1];
+                        currFunc = new Function(name);
+                        boolean addToFunction = true;
+                        while(addToFunction){
+                            line = br.readLine();
+                            if(line.startsWith(Opcode.FUNC_END.toString())){
+                                // set the flag and add the function to the map
+                                addToFunction = false;
+                                functions.put(name, currFunc);
+                            }else if(line.startsWith(Opcode.IPARAM.toString())){
+                                // create symbol of integer type and put it into parameters map
+                                Symbol param = new Symbol(0,0);
+                                currFunc.addParam(tokens[1],param);
+                            }else if(line.startsWith(Opcode.IPARAM.toString())){
+                                // create symbol of boolean type and put it into parameters map
+                                Symbol param = new Symbol(1,0);
+                                currFunc.addParam(tokens[1],param);
+                            }else{
+                                currFunc.addCodeLine(line);
+                            }
+                        }
+                    }
+                }
+            }
+            br.close();
+        }catch (Exception e){
+            System.out.println("Error in parsing the file" + e.getMessage());
+        }
+    }
 }
