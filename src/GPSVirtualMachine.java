@@ -36,7 +36,7 @@ public class GPSVirtualMachine {
     public Bytecode readByteCode(String filepath){
 
         LinesOfCode fullcode = new LinesOfCode();
-        Map<String, LinesOfCode> functions = new HashMap<String, LinesOfCode>();
+        Map<String, Function> functions = new HashMap<String, Function>();
         LinesOfCode globalDeclaration = new LinesOfCode();
 
         try{
@@ -69,8 +69,8 @@ public class GPSVirtualMachine {
                                 fullcode.code.add(line);
                             }
                         }
-
-                        functions.put(name, functionCode);
+                        functions.put(name, generateFunction(name, functionCode));
+                        //functions.put(name, functionCode);
                     }else{
                         fullcode.code.add(line);
                         globalDeclaration.code.add(line);
@@ -89,6 +89,40 @@ public class GPSVirtualMachine {
     }
 
     // Method to parse the lines and generate function objects
+    public Function generateFunction(String name, LinesOfCode functionCode){
+        ArrayList<Symbol> params = new ArrayList<>();
+        int returnType = -1;
+
+        for (int i=1; i<functionCode.code.size(); i++){
+            String[] tokens = functionCode.code.get(i).split(" ");
+            if(i==1){
+                if(tokens[0].equalsIgnoreCase(Opcode.TRETURN.toString())){
+                    if(tokens[1].equalsIgnoreCase("INT")){
+                        returnType = 0;
+                    }else if(tokens[1].equalsIgnoreCase("BOOLEAN")){
+                        returnType = 1;
+                    }else if(tokens[1].equalsIgnoreCase("VOID")){
+                        returnType = -1;
+                    }else{
+                        System.out.println("Incorrect return-type for function: "+name);
+                        System.exit(0);
+                    }
+                }else{
+                    System.out.println("Return-type not specified for function: "+name);
+                    System.exit(0);
+                }
+            }else if(tokens[0].equalsIgnoreCase(Opcode.IPARAM.toString())){
+                params.add(new Symbol(0));
+            }else if(tokens[0].equalsIgnoreCase(Opcode.BPARAM.toString())){
+                params.add(new Symbol(1));
+            }else{
+                // breaking out since function definition is over
+                break;
+            }
+        }
+        return new Function(name, params, functionCode, returnType);
+    }
+    /*
     public void generateFunctions(String filepath){
         Map<String, Function> functions = new HashMap<String, Function>();
         try{
@@ -128,4 +162,5 @@ public class GPSVirtualMachine {
             System.out.println("Error in parsing the file" + e.getMessage());
         }
     }
+    */
 }

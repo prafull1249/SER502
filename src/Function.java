@@ -4,26 +4,35 @@
 import java.util.*;
 public class Function {
     public String name;
-    private List<String> codeLines;
-    private LinkedHashMap<String, Symbol> params;
-    private Map<String, Object> variables;
+    private LinesOfCode codeLines;
+    private ArrayList<Symbol> params;
+    private int returnType;
 
-    Function(String name){
+    Function(String name, ArrayList<Symbol> params, LinesOfCode codeLines, int returnType){
         this.name = name;
-        this.params = new LinkedHashMap<>();
-        this.variables = new HashMap<>();
+        this.params = params;
+        this.codeLines = codeLines;
+        this.returnType = returnType;
+    }
+
+    public int getReturnType() {
+        return returnType;
+    }
+
+    public LinesOfCode getCodeLines() {
+        return codeLines;
+    }
+
+    public ArrayList<Symbol> getParams() {
+        return params;
     }
 
     public void addCodeLine(String newLine){
-        codeLines.add(newLine);
+        codeLines.code.add(newLine);
     }
 
-    public void addParam(String param, Symbol sym){
-        params.put(param, sym);
+    public void addParam(Symbol sym){
+        params.add(sym);
     }
 
-    public void addVar(String var, Symbol sym){
-        variables.put(var, sym);
-    }
-    
 }
