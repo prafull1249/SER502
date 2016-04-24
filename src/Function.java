@@ -27,6 +27,18 @@ public class Function {
         return params;
     }
 
+    public void setCodeLines(LinesOfCode codeLines) {
+        this.codeLines = codeLines;
+    }
+
+    public void setParams(ArrayList<Symbol> params) {
+        this.params = params;
+    }
+
+    public void setReturnType(int returnType) {
+        this.returnType = returnType;
+    }
+
     public void addCodeLine(String newLine){
         codeLines.code.add(newLine);
     }

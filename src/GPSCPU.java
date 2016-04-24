@@ -29,7 +29,7 @@ public class GPSCPU {
 
     public void execute(){
         System.out.println("Executing bytecode...");
-        printByteCode();
+        //printByteCode();
         if(bytecode.getGlobalDeclaration().code.size() != 0){
             System.out.println(bytecode.getGlobalDeclaration().code.size());
             executeCode(bytecode.getGlobalDeclaration().code);
@@ -56,8 +56,8 @@ public class GPSCPU {
         }
         */
 
-        for(String line: code){
-            String[] tokens = line.split(" ");
+        for(int ip=0; ip<code.size(); ip++){
+            String[] tokens = code.get(ip).split(" ");
             //System.out.println("token extracted: " + tokens[0]);
             if(isValidOpcode(tokens[0])){
                 // System.out.println("Valid opcode found");
@@ -193,8 +193,9 @@ public class GPSCPU {
                         System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        Symbol operand1 = aFrame.operandStack.pop();
-                        Symbol operand2 = aFrame.operandStack.pop();
+                        Symbol operand1 = formOperand(tokens[1]);
+                        Symbol operand2 = formOperand(tokens[2]);
+
                         if (operand1.getType() != operand2.getType()) {
                             System.out.println("Error: Comparison between operands of different types");
                             System.out.println("Exiting..");
@@ -212,8 +213,9 @@ public class GPSCPU {
                         System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        Symbol operand1 = aFrame.operandStack.pop();
-                        Symbol operand2 = aFrame.operandStack.pop();
+                        Symbol operand1 = formOperand(tokens[1]);
+                        Symbol operand2 = formOperand(tokens[2]);
+
                         if (operand1.getType() != 0 || operand2.getType() != 0) {
                             System.out.println("Error: Operands are not of type integer");
                             System.out.println("Exiting..");
@@ -231,8 +233,9 @@ public class GPSCPU {
                         System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        Symbol operand1 = aFrame.operandStack.pop();
-                        Symbol operand2 = aFrame.operandStack.pop();
+                        Symbol operand1 = formOperand(tokens[1]);
+                        Symbol operand2 = formOperand(tokens[2]);
+
                         if (operand1.getType() != 0 || operand2.getType() != 0) {
                             System.out.println("Error: Operands are not of type integer");
                             System.out.println("Exiting..");
@@ -250,8 +253,10 @@ public class GPSCPU {
                         System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        Symbol operand1 = aFrame.operandStack.pop();
-                        Symbol operand2 = aFrame.operandStack.pop();
+
+                        Symbol operand1 = formOperand(tokens[1]);
+                        Symbol operand2 = formOperand(tokens[2]);
+
                         if (operand1.getType() != 0 || operand2.getType() != 0) {
                             System.out.println("Error: Operands are not of type integer");
                             System.out.println("Exiting..");
@@ -269,8 +274,10 @@ public class GPSCPU {
                         System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        Symbol operand1 = aFrame.operandStack.pop();
-                        Symbol operand2 = aFrame.operandStack.pop();
+
+                        Symbol operand1 = formOperand(tokens[1]);
+                        Symbol operand2 = formOperand(tokens[2]);
+
                         if (operand1.getType() != 0 || operand2.getType() != 0) {
                             System.out.println("Error: Operands are not of type integer");
                             System.out.println("Exiting..");
@@ -288,8 +295,10 @@ public class GPSCPU {
                         System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        Symbol operand1 = aFrame.operandStack.pop();
-                        Symbol operand2 = aFrame.operandStack.pop();
+
+                        Symbol operand1 = formOperand(tokens[1]);
+                        Symbol operand2 = formOperand(tokens[2]);
+
                         if (operand1.getType() != 1 || operand2.getType() != 1) {
                             System.out.println("Error: Operands are not of type boolean");
                             System.out.println("Exiting..");
@@ -307,8 +316,10 @@ public class GPSCPU {
                         System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        Symbol operand1 = aFrame.operandStack.pop();
-                        Symbol operand2 = aFrame.operandStack.pop();
+
+                        Symbol operand1 = formOperand(tokens[1]);
+                        Symbol operand2 = formOperand(tokens[2]);
+
                         if (operand1.getType() != 1 || operand2.getType() != 1) {
                             System.out.println("Error: Operands are not of type boolean");
                             System.out.println("Exiting..");
@@ -324,44 +335,166 @@ public class GPSCPU {
 
                     case LOOP_START: {
                         System.out.println(opcode.name());
+                        ActivationFrame aFrame = activationFrameStack.peek();
+
+                        if(aFrame.blockStack.peek().startIndex != ip-1){
+                            Block loopBlock = new Block();
+                            loopBlock.startIndex = ip-1;
+                            loopBlock.endIndex = 0;                             //temporary
+                            aFrame.blockStack.push(loopBlock);
+                        }
+
+                        Symbol ifExpressionResult = aFrame.operandStack.peek();
+                        if(ifExpressionResult.getType()==1){
+                            if(ifExpressionResult.getValue() == 0){
+                                if(aFrame.blockStack.peek().endIndex <= aFrame.blockStack.peek().startIndex){
+                                    String ifBlockStatement = code.get(++ip);
+                                    String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
+                                    while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.LOOP_END.toString()))){
+                                        ifBlockStatement = code.get(++ip);
+                                        ifBlockStatementTokens = ifBlockStatement.split(" ");
+                                    }
+                                }else{
+                                    ip = aFrame.blockStack.peek().endIndex + 1;
+                                    aFrame.blockStack.pop();
+                                }
+                            }else{
+                                aFrame.blockStack.push(new Block());
+                            }
+                        }else{
+                            System.out.println("Error: The loop-condition expression cannot be evaluated to a boolean value");
+                            System.out.println("Exiting...");
+                            System.exit(0);
+                        }
+
                         break;
                     }
-                    case LOOP_END:
+
+                    case LOOP_END:{
                         System.out.println(opcode.name());
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        if(aFrame.blockStack.peek().endIndex <= aFrame.blockStack.peek().startIndex) {
+                            aFrame.blockStack.peek().endIndex = ip;
+                        }
+                        ip = aFrame.blockStack.peek().startIndex;
                         break;
+                    }
 
                     case FUNC_START: {
                         System.out.println(opcode.name());
 
                         String name = tokens[1];
                         ActivationFrame aFrame = new ActivationFrame(name);
+                        aFrame.blockStack.push(new Block());
                         activationFrameStack.push(aFrame);
                         break;
                     }
 
-                    case FUNC_END:
+                    case FUNC_END: {
                         System.out.println(opcode.name());
-                        break;
 
-                    case TRETURN:
-                        System.out.println(opcode.name());
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        Symbol returnValue = aFrame.returnValue;
+                        ip = aFrame.returnAddress;
+                        activationFrameStack.pop();
+                        activationFrameStack.peek().operandStack.push(returnValue);
                         break;
+                    }
 
-                    case IPARAM:
+                    case TRETURN: {
                         System.out.println(opcode.name());
-                        break;
 
-                    case BPARAM:
-                        System.out.println(opcode.name());
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        Function currentFunction = bytecode.getFunctions().get(aFrame.functionName);
+                        String returnType = tokens[1];
+                        if(returnType.equalsIgnoreCase("INT")){
+                            currentFunction.setReturnType(0);
+                        }else if(returnType.equalsIgnoreCase("BOOLEAN")){
+                            currentFunction.setReturnType(1);
+                        }else if(returnType.equalsIgnoreCase("VOID")){
+                            currentFunction.setReturnType(-1);
+                        }
                         break;
+                    }
 
-                    case RETURN:
+                    case IPARAM: {
                         System.out.println(opcode.name());
-                        break;
 
-                    case CALL:
-                        System.out.println(opcode.name());
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        String parameterName = tokens[1];
+                        Block currentBlock = aFrame.blockStack.peek();
+                        Symbol parameterPassed = aFrame.operandStack.pop();
+                        if(parameterPassed.getType() != 0){
+                            System.out.println("Error: Type of parameter passed and defined does not match./nExiting");
+                            System.exit(0);
+                        }
+                        currentBlock.symbolTable.put(parameterName, parameterPassed);
+
                         break;
+                    }
+
+                    case BPARAM:{
+                        System.out.println(opcode.name());
+
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        String parameterName = tokens[1];
+                        Block currentBlock = aFrame.blockStack.peek();
+                        Symbol parameterPassed = aFrame.operandStack.pop();
+                        if(parameterPassed.getType() != 1){
+                            System.out.println("Error: Type of parameter passed and defined does not match./nExiting");
+                            System.exit(0);
+                        }
+                        currentBlock.symbolTable.put(parameterName, parameterPassed);
+
+                        break;
+                    }
+
+                    case RETURN:{
+                        System.out.println(opcode.name());
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        String returnValueString = tokens[1];
+                        Symbol returnValue = formOperand(returnValueString);
+                        String currentFunctionName = aFrame.functionName;
+
+                        if(returnValue.getType() != bytecode.getFunctions().get(currentFunctionName).getReturnType()){
+                            System.out.println("Error: Return type doesn't match with the definition./nExiting...");
+                            System.exit(0);
+                        }else{
+                            aFrame.returnValue = returnValue;
+                        }
+                        break;
+                    }
+
+                    case CALL: {
+                        System.out.println(opcode.name());
+
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        String invokedFunctionName = tokens[1];
+                        if(! bytecode.getFunctions().containsKey(invokedFunctionName)){
+                            System.out.println("Error: Called function "+invokedFunctionName+" is not defined.\nExiting...");
+                            System.exit(0);
+                        }
+
+                        int numberOfParameters = 0;
+                        if(tokens.length > 2){
+                            String numberOfParametersString = tokens[2];
+                            if(isNumeric(numberOfParametersString)){
+                                numberOfParameters = Integer.parseInt(numberOfParametersString);
+                                if(numberOfParameters != bytecode.getFunctions().get(invokedFunctionName).getParams().size()){
+                                    System.out.println("Error: Number of parameters passed doesn't match with the definition.\nExiting...");
+                                    System.exit(0);
+                                }
+                            }
+                        }
+                        ActivationFrame calledFunctionFrame = new ActivationFrame(invokedFunctionName);
+                        for(int i=0; i<numberOfParameters; i++){
+                            calledFunctionFrame.operandStack.push(aFrame.operandStack.pop());
+                        }
+                        calledFunctionFrame.returnAddress = ip+1;
+                        activationFrameStack.push(calledFunctionFrame);
+                        executeCode(bytecode.getFunctions().get(invokedFunctionName).getCodeLines().code);
+                        break;
+                    }
 
                     case PRINT:
                         System.out.println(opcode.name());
@@ -410,8 +543,8 @@ public class GPSCPU {
                         System.out.println(opcode.name());
 
                         // create new block and push it on the bloc stack of current activation record
-                        ActivationFrame aFrame = activationFrameStack.peek();
-                        aFrame.blockStack.push(new Block());
+                        // ActivationFrame aFrame = activationFrameStack.peek();
+                        // aFrame.blockStack.push(new Block());
                         break;
                     }
 
@@ -419,7 +552,6 @@ public class GPSCPU {
                         System.out.println(opcode.name());
                         // Remove the last block from the block stack of the current activation frame
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        aFrame = this.activationFrameStack.peek();
                         aFrame.operandStack.pop();
                         break;
                     }
@@ -429,7 +561,24 @@ public class GPSCPU {
 
                         // create new block and push it on the bloc stack of current activation record
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        aFrame.blockStack.push(new Block());
+                        Symbol ifExpressionResult = aFrame.operandStack.peek();
+                        if(ifExpressionResult.getType()==1){
+                            if(ifExpressionResult.getValue() == 0){
+                                String ifBlockStatement = code.get(++ip);
+                                String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
+                                while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_BLOCK_END.toString()))){
+                                    ifBlockStatement = code.get(++ip);
+                                    ifBlockStatementTokens = ifBlockStatement.split(" ");
+                                }
+                            }else{
+                                aFrame.blockStack.push(new Block());
+                            }
+                        }else{
+                            System.out.println("Error: The if-condition expression cannot be evaluated to a boolean value");
+                            System.out.println("Exiting...");
+                            System.exit(0);
+                        }
+
                         break;
                     }
 
@@ -437,7 +586,6 @@ public class GPSCPU {
                         System.out.println(opcode.name());
                         // Remove the last block from the block stack of the current activation frame
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        aFrame = this.activationFrameStack.peek();
                         aFrame.blockStack.pop();
                         break;
                     }
@@ -447,7 +595,24 @@ public class GPSCPU {
 
                         // create new block and push it on the bloc stack of current activation record
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        aFrame.blockStack.push(new Block());
+                        Symbol ifExpressionResult = aFrame.operandStack.peek();
+                        if(ifExpressionResult.getType()==1){
+                            if(ifExpressionResult.getValue() == 1){
+                                String ifBlockStatement = code.get(++ip);
+                                String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
+                                while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.ELSE_BLOCK_END.toString()))){
+                                    ifBlockStatement = code.get(++ip);
+                                    ifBlockStatementTokens = ifBlockStatement.split(" ");
+                                }
+                            }else{
+                                aFrame.blockStack.push(new Block());
+                            }
+                        }else{
+                            System.out.println("Error: The if expression cannot be evaluated to a boolean value");
+                            System.out.println("Exiting...");
+                            System.exit(0);
+                        }
+
                         break;
                     }
 
@@ -455,7 +620,6 @@ public class GPSCPU {
                         System.out.println(opcode.name());
                         // Remove the last block from the block stack of the current activation frame
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        aFrame = this.activationFrameStack.peek();
                         aFrame.blockStack.pop();
                         break;
                     }
@@ -575,5 +739,16 @@ public class GPSCPU {
         }else{
             return false;
         }
+    }
+
+    public Symbol formOperand(String operandString){
+        Symbol operand = new Symbol();
+        if(isNumeric(operandString)){
+            operand.setType(0);
+            operand.setValue(Integer.parseInt(operandString));
+        }else{
+            operand = getVariable(operandString);
+        }
+        return operand;
     }
 }
