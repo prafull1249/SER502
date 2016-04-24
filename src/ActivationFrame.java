@@ -6,12 +6,12 @@ import java.util.Stack;
 public class ActivationFrame {
     int returnAddress;
     Symbol returnValue;
-    LinkedStack<Block> blockStack;
+    Stack<Block> blockStack;
     Stack<Symbol> operandStack;
     String functionName;
 
     ActivationFrame(String name){
-        blockStack = new LinkedStack<>();
+        blockStack = new Stack<>();
         blockStack.push(new Block());
         operandStack = new Stack<>();
         returnValue = new Symbol();

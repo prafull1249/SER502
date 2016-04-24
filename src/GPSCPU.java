@@ -57,6 +57,7 @@ public class GPSCPU {
         */
 
         for(int ip=0; ip<code.size(); ip++){
+            System.out.println(code.get(ip));
             String[] tokens = code.get(ip).split(" ");
             //System.out.println("token extracted: " + tokens[0]);
             if(isValidOpcode(tokens[0])){
@@ -66,7 +67,7 @@ public class GPSCPU {
                 switch (opcode){
 
                     case ISTORE: {
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
                         int integerLiteral = Integer.parseInt(tokens[1]);
@@ -74,7 +75,7 @@ public class GPSCPU {
                         break;
                     }
                     case BSTORE: {
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
                         boolean booleanLiteral = Boolean.parseBoolean(tokens[1]);
@@ -86,7 +87,7 @@ public class GPSCPU {
                         break;
                     }
                     case STORE: {
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
                         String variableName = tokens[1];
@@ -101,8 +102,9 @@ public class GPSCPU {
                         }
                         break;
                     }
+
                     case ASSIGN: {
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
                         String variableName = tokens[1];
@@ -114,6 +116,7 @@ public class GPSCPU {
                                 System.out.println("Error: Incompatible type /nExiting...");
                                 System.exit(0);
                             }else{
+                                System.out.println("Assigning value "+variableName+": "+rhs.getValue());
                                 lhs.setValue(rhs.getValue());
                             }
                         }else{
@@ -126,7 +129,7 @@ public class GPSCPU {
                     }
 
                     case ADD: {
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
                         Symbol operand1 = aFrame.operandStack.pop();
@@ -141,7 +144,7 @@ public class GPSCPU {
                     }
 
                     case SUB: {
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
                         Symbol operand1 = aFrame.operandStack.pop();
@@ -156,7 +159,7 @@ public class GPSCPU {
                     }
 
                     case MUL: {
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
                         Symbol operand1 = aFrame.operandStack.pop();
@@ -171,7 +174,7 @@ public class GPSCPU {
                     }
 
                     case DIV: {
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
                         Symbol operand1 = aFrame.operandStack.pop();
@@ -190,7 +193,7 @@ public class GPSCPU {
                     }
 
                     case EQ:{
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
                         Symbol operand1 = formOperand(tokens[1]);
@@ -210,7 +213,7 @@ public class GPSCPU {
                     }
 
                     case GT:{
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
                         Symbol operand1 = formOperand(tokens[1]);
@@ -230,7 +233,7 @@ public class GPSCPU {
                     }
 
                     case GTE:{
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
                         Symbol operand1 = formOperand(tokens[1]);
@@ -250,7 +253,7 @@ public class GPSCPU {
                     }
 
                     case LT:{
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
 
@@ -271,7 +274,7 @@ public class GPSCPU {
                     }
 
                     case LTE:{
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
 
@@ -292,7 +295,7 @@ public class GPSCPU {
                     }
 
                     case OR:{
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
 
@@ -313,7 +316,7 @@ public class GPSCPU {
                     }
 
                     case AND:{
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
 
@@ -334,7 +337,7 @@ public class GPSCPU {
                     }
 
                     case LOOP_START: {
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
                         ActivationFrame aFrame = activationFrameStack.peek();
 
                         if(aFrame.blockStack.peek().startIndex != ip-1){
@@ -344,7 +347,7 @@ public class GPSCPU {
                             aFrame.blockStack.push(loopBlock);
                         }
 
-                        Symbol ifExpressionResult = aFrame.operandStack.peek();
+                        Symbol ifExpressionResult = aFrame.operandStack.pop();
                         if(ifExpressionResult.getType()==1){
                             if(ifExpressionResult.getValue() == 0){
                                 if(aFrame.blockStack.peek().endIndex <= aFrame.blockStack.peek().startIndex){
@@ -371,7 +374,7 @@ public class GPSCPU {
                     }
 
                     case LOOP_END:{
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
                         ActivationFrame aFrame = activationFrameStack.peek();
                         if(aFrame.blockStack.peek().endIndex <= aFrame.blockStack.peek().startIndex) {
                             aFrame.blockStack.peek().endIndex = ip;
@@ -381,17 +384,20 @@ public class GPSCPU {
                     }
 
                     case FUNC_START: {
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         String name = tokens[1];
-                        ActivationFrame aFrame = new ActivationFrame(name);
-                        aFrame.blockStack.push(new Block());
-                        activationFrameStack.push(aFrame);
+                        if(name.equalsIgnoreCase("main")){
+                            ActivationFrame aFrame = new ActivationFrame(name);
+                            aFrame.blockStack.push(new Block());
+                            activationFrameStack.push(aFrame);
+                        }
+
                         break;
                     }
 
                     case FUNC_END: {
-                        System.out.println(opcode.name());
+                        //System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
                         Symbol returnValue = aFrame.returnValue;
@@ -402,33 +408,43 @@ public class GPSCPU {
                     }
 
                     case TRETURN: {
-                        System.out.println(opcode.name());
+                        //System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        Function currentFunction = bytecode.getFunctions().get(aFrame.functionName);
-                        String returnType = tokens[1];
-                        if(returnType.equalsIgnoreCase("INT")){
-                            currentFunction.setReturnType(0);
-                        }else if(returnType.equalsIgnoreCase("BOOLEAN")){
-                            currentFunction.setReturnType(1);
-                        }else if(returnType.equalsIgnoreCase("VOID")){
-                            currentFunction.setReturnType(-1);
+
+                        if(aFrame.blockStack.peek().endIndex == 0){
+                            Function currentFunction = bytecode.getFunctions().get(aFrame.functionName);
+                            String returnType = tokens[1];
+                            if(returnType.equalsIgnoreCase("INT")){
+                                currentFunction.setReturnType(0);
+                            }else if(returnType.equalsIgnoreCase("BOOLEAN")){
+                                currentFunction.setReturnType(1);
+                            }else if(returnType.equalsIgnoreCase("VOID")){
+                                currentFunction.setReturnType(-1);
+                            }
                         }
+
                         break;
                     }
 
                     case IPARAM: {
-                        System.out.println(opcode.name());
+                        //System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        String parameterName = tokens[1];
-                        Block currentBlock = aFrame.blockStack.peek();
-                        Symbol parameterPassed = aFrame.operandStack.pop();
-                        if(parameterPassed.getType() != 0){
-                            System.out.println("Error: Type of parameter passed and defined does not match./nExiting");
-                            System.exit(0);
+                        if(aFrame.blockStack.peek().endIndex == 0){
+                            String parameterName = tokens[1];
+                            Block currentBlock = aFrame.blockStack.peek();
+
+                            //System.out.println(aFrame.functionName);
+                            //printOperandStack(aFrame.operandStack);
+                            Symbol parameterPassed = aFrame.operandStack.pop();
+
+                            if(parameterPassed.getType() != 0){
+                                System.out.println("Error: Type of parameter passed and defined does not match./nExiting");
+                                System.exit(0);
+                            }
+                            currentBlock.symbolTable.put(parameterName, parameterPassed);
                         }
-                        currentBlock.symbolTable.put(parameterName, parameterPassed);
 
                         break;
                     }
@@ -437,20 +453,24 @@ public class GPSCPU {
                         System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        String parameterName = tokens[1];
-                        Block currentBlock = aFrame.blockStack.peek();
-                        Symbol parameterPassed = aFrame.operandStack.pop();
-                        if(parameterPassed.getType() != 1){
-                            System.out.println("Error: Type of parameter passed and defined does not match./nExiting");
-                            System.exit(0);
+
+                        if(aFrame.blockStack.peek().endIndex == 0){
+                            String parameterName = tokens[1];
+                            Block currentBlock = aFrame.blockStack.peek();
+                            Symbol parameterPassed = aFrame.operandStack.pop();
+                            if(parameterPassed.getType() != 1){
+                                System.out.println("Error: Type of parameter passed and defined does not match./nExiting");
+                                System.exit(0);
+                            }
+                            currentBlock.symbolTable.put(parameterName, parameterPassed);
                         }
-                        currentBlock.symbolTable.put(parameterName, parameterPassed);
 
                         break;
                     }
 
                     case RETURN:{
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
+
                         ActivationFrame aFrame = activationFrameStack.peek();
                         String returnValueString = tokens[1];
                         Symbol returnValue = formOperand(returnValueString);
@@ -466,7 +486,7 @@ public class GPSCPU {
                     }
 
                     case CALL: {
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
                         String invokedFunctionName = tokens[1];
@@ -486,10 +506,15 @@ public class GPSCPU {
                                 }
                             }
                         }
+
                         ActivationFrame calledFunctionFrame = new ActivationFrame(invokedFunctionName);
+                        // System.out.println(invokedFunctionName);
                         for(int i=0; i<numberOfParameters; i++){
                             calledFunctionFrame.operandStack.push(aFrame.operandStack.pop());
                         }
+
+                        // printOperandStack(calledFunctionFrame.operandStack);
+
                         calledFunctionFrame.returnAddress = ip+1;
                         activationFrameStack.push(calledFunctionFrame);
                         executeCode(bytecode.getFunctions().get(invokedFunctionName).getCodeLines().code);
@@ -519,7 +544,7 @@ public class GPSCPU {
                         break;
 
                     case IDEC: {
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
                         // creating variable of int type and adding it to the current block
@@ -530,7 +555,7 @@ public class GPSCPU {
                         break;
                     }
                     case BDEC:{
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
                         Symbol sym = new Symbol(1);
@@ -540,7 +565,7 @@ public class GPSCPU {
                         break;
                     }
                     case IF_START: {
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
 
                         // create new block and push it on the bloc stack of current activation record
                         // ActivationFrame aFrame = activationFrameStack.peek();
@@ -549,7 +574,7 @@ public class GPSCPU {
                     }
 
                     case IF_END: {
-                        System.out.println(opcode.name());
+                        // System.out.println(opcode.name());
                         // Remove the last block from the block stack of the current activation frame
                         ActivationFrame aFrame = activationFrameStack.peek();
                         aFrame.operandStack.pop();
@@ -557,7 +582,7 @@ public class GPSCPU {
                     }
 
                     case IF_BLOCK_START:{
-                        System.out.println(opcode.name());
+                        //System.out.println(opcode.name());
 
                         // create new block and push it on the bloc stack of current activation record
                         ActivationFrame aFrame = activationFrameStack.peek();
@@ -583,7 +608,7 @@ public class GPSCPU {
                     }
 
                     case IF_BLOCK_END:{
-                        System.out.println(opcode.name());
+                        //System.out.println(opcode.name());
                         // Remove the last block from the block stack of the current activation frame
                         ActivationFrame aFrame = activationFrameStack.peek();
                         aFrame.blockStack.pop();
@@ -591,7 +616,7 @@ public class GPSCPU {
                     }
 
                     case ELSE_BLOCK_START:{
-                        System.out.println(opcode.name());
+                        //System.out.println(opcode.name());
 
                         // create new block and push it on the bloc stack of current activation record
                         ActivationFrame aFrame = activationFrameStack.peek();
@@ -617,7 +642,7 @@ public class GPSCPU {
                     }
 
                     case ELSE_BLOCK_END:{
-                        System.out.println(opcode.name());
+                        //System.out.println(opcode.name());
                         // Remove the last block from the block stack of the current activation frame
                         ActivationFrame aFrame = activationFrameStack.peek();
                         aFrame.blockStack.pop();
@@ -675,7 +700,7 @@ public class GPSCPU {
             }
         }
     }
-
+    /*
     private int getValue(String var){
         // keep searching from the most inner block. First encountered value is returned
         LinkedStack<Block> blockStack = this.activationFrameStack.peek().blockStack;
@@ -689,20 +714,28 @@ public class GPSCPU {
         System.out.println("Illegal usage of variable "+var);
         return 0;
     }
-
+    */
     public boolean isVariableDefined(String variableName){
         boolean variableFound = false;
 
         ActivationFrame aFrame = activationFrameStack.peek();
-
+        /*
         while (aFrame.blockStack.iterator().hasNext()) {
+            System.out.println("isVariableDefined while loop");
             Block block = aFrame.blockStack.iterator().next();
             if (block.symbolTable.containsKey(variableName)) {
                 variableFound = true;
                 break;
             }
         }
+        */
 
+        for(int i=aFrame.blockStack.size()-1; i>=0; i--){
+            if(aFrame.blockStack.elementAt(i).symbolTable.containsKey(variableName)){
+                variableFound = true;
+                break;
+            }
+        }
         return variableFound;
     }
 
@@ -750,5 +783,12 @@ public class GPSCPU {
             operand = getVariable(operandString);
         }
         return operand;
+    }
+
+    public void printOperandStack(Stack<Symbol> stack){
+        for(int i=stack.size()-1; i>=0; i--){
+            System.out.print(stack.elementAt(i).getValue() + " ");
+        }
+        System.out.println();
     }
 }
