@@ -4,24 +4,47 @@
 import java.util.*;
 public class Function {
     public String name;
-    private List<String> codeLines;
-    private Map<String, Object> params;
-    private Map<String, Object> variables;
+    private LinesOfCode codeLines;
+    private ArrayList<Symbol> params;
+    private int returnType;
 
-    Function(String name){
+    Function(String name, ArrayList<Symbol> params, LinesOfCode codeLines, int returnType){
         this.name = name;
+        this.params = params;
+        this.codeLines = codeLines;
+        this.returnType = returnType;
+    }
+
+    public int getReturnType() {
+        return returnType;
+    }
+
+    public LinesOfCode getCodeLines() {
+        return codeLines;
+    }
+
+    public ArrayList<Symbol> getParams() {
+        return params;
+    }
+
+    public void setCodeLines(LinesOfCode codeLines) {
+        this.codeLines = codeLines;
+    }
+
+    public void setParams(ArrayList<Symbol> params) {
+        this.params = params;
+    }
+
+    public void setReturnType(int returnType) {
+        this.returnType = returnType;
     }
 
     public void addCodeLine(String newLine){
-        codeLines.add(newLine);
+        codeLines.code.add(newLine);
     }
 
-    public void addParam(String param, Object obj){
-        params.put(param, obj);
+    public void addParam(Symbol sym){
+        params.add(sym);
     }
 
-    public void addVar(String var, Object obj){
-        variables.put(var, obj);
-    }
-    
 }

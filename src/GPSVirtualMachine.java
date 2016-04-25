@@ -36,7 +36,7 @@ public class GPSVirtualMachine {
     public Bytecode readByteCode(String filepath){
 
         LinesOfCode fullcode = new LinesOfCode();
-        Map<String, LinesOfCode> functions = new HashMap<String, LinesOfCode>();
+        Map<String, Function> functions = new HashMap<String, Function>();
         LinesOfCode globalDeclaration = new LinesOfCode();
 
         try{
@@ -69,8 +69,8 @@ public class GPSVirtualMachine {
                                 fullcode.code.add(line);
                             }
                         }
-
-                        functions.put(name, functionCode);
+                        functions.put(name, generateFunction(name, functionCode));
+                        //functions.put(name, functionCode);
                     }else{
                         fullcode.code.add(line);
                         globalDeclaration.code.add(line);
@@ -87,4 +87,80 @@ public class GPSVirtualMachine {
 
         return new Bytecode(fullcode, globalDeclaration, functions);
     }
+
+    // Method to parse the lines and generate function objects
+    public Function generateFunction(String name, LinesOfCode functionCode){
+        ArrayList<Symbol> params = new ArrayList<>();
+        int returnType = -1;
+
+        for (int i=1; i<functionCode.code.size(); i++){
+            String[] tokens = functionCode.code.get(i).split(" ");
+            if(i==1){
+                if(tokens[0].equalsIgnoreCase(Opcode.TRETURN.toString())){
+                    if(tokens[1].equalsIgnoreCase("INT")){
+                        returnType = 0;
+                    }else if(tokens[1].equalsIgnoreCase("BOOLEAN")){
+                        returnType = 1;
+                    }else if(tokens[1].equalsIgnoreCase("VOID")){
+                        returnType = -1;
+                    }else{
+                        System.out.println("Incorrect return-type for function: "+name);
+                        System.exit(0);
+                    }
+                }else{
+                    System.out.println("Return-type not specified for function: "+name);
+                    System.exit(0);
+                }
+            }else if(tokens[0].equalsIgnoreCase(Opcode.IPARAM.toString())){
+                params.add(new Symbol(0));
+            }else if(tokens[0].equalsIgnoreCase(Opcode.BPARAM.toString())){
+                params.add(new Symbol(1));
+            }else{
+                // breaking out since function definition is over
+                break;
+            }
+        }
+        return new Function(name, params, functionCode, returnType);
+    }
+    /*
+    public void generateFunctions(String filepath){
+        Map<String, Function> functions = new HashMap<String, Function>();
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(filepath));
+            String line = "";
+            Function currFunc;
+            while ((line = br.readLine()) != null) {
+                if(!(line.isEmpty() || line.trim().equals("") || line.trim().equals("\n"))){
+                    if (line.startsWith(Opcode.FUNC_START.toString())){
+                        String[] tokens = line.split(" ");
+                        String name = tokens[1];
+                        currFunc = new Function(name);
+                        boolean addToFunction = true;
+                        while(addToFunction){
+                            line = br.readLine();
+                            if(line.startsWith(Opcode.FUNC_END.toString())){
+                                // set the flag and add the function to the map
+                                addToFunction = false;
+                                functions.put(name, currFunc);
+                            }else if(line.startsWith(Opcode.IPARAM.toString())){
+                                // create symbol of integer type and put it into parameters map
+                                Symbol param = new Symbol(0,0);
+                                currFunc.addParam(tokens[1],param);
+                            }else if(line.startsWith(Opcode.IPARAM.toString())){
+                                // create symbol of boolean type and put it into parameters map
+                                Symbol param = new Symbol(1,0);
+                                currFunc.addParam(tokens[1],param);
+                            }else{
+                                currFunc.addCodeLine(line);
+                            }
+                        }
+                    }
+                }
+            }
+            br.close();
+        }catch (Exception e){
+            System.out.println("Error in parsing the file" + e.getMessage());
+        }
+    }
+    */
 }

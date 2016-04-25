@@ -12,6 +12,7 @@ public class ActivationFrame {
 
     ActivationFrame(String name){
         blockStack = new Stack<>();
+        blockStack.push(new Block());
         operandStack = new Stack<>();
         returnValue = new Symbol();
         functionName = name;
