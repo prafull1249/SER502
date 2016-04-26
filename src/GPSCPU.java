@@ -116,7 +116,7 @@ public class GPSCPU {
                                 System.out.println("Error: Incompatible type /nExiting...");
                                 System.exit(0);
                             }else{
-                                System.out.println("Assigning value "+variableName+": "+rhs.getValue());
+                                //System.out.println("Assigning value "+variableName+": "+rhs.getValue());
                                 lhs.setValue(rhs.getValue());
                             }
                         }else{
@@ -340,14 +340,17 @@ public class GPSCPU {
                         // System.out.println(opcode.name());
                         ActivationFrame aFrame = activationFrameStack.peek();
 
-                        if(aFrame.blockStack.peek().startIndex != ip-1){
+                        if(aFrame.blockStack.peek().startIndex != ip-2){
+
                             Block loopBlock = new Block();
-                            loopBlock.startIndex = ip-1;
+                            loopBlock.startIndex = ip-2;
                             loopBlock.endIndex = 0;                             //temporary
                             aFrame.blockStack.push(loopBlock);
                         }
 
+                        //printOperandStack(aFrame.operandStack);
                         Symbol ifExpressionResult = aFrame.operandStack.pop();
+
                         if(ifExpressionResult.getType()==1){
                             if(ifExpressionResult.getValue() == 0){
                                 if(aFrame.blockStack.peek().endIndex <= aFrame.blockStack.peek().startIndex){
@@ -361,9 +364,11 @@ public class GPSCPU {
                                     ip = aFrame.blockStack.peek().endIndex + 1;
                                     aFrame.blockStack.pop();
                                 }
-                            }else{
-                                aFrame.blockStack.push(new Block());
                             }
+                            /*
+                            else{
+                                aFrame.blockStack.push(new Block());
+                            }*/
                         }else{
                             System.out.println("Error: The loop-condition expression cannot be evaluated to a boolean value");
                             System.out.println("Exiting...");
@@ -385,14 +390,14 @@ public class GPSCPU {
 
                     case FUNC_START: {
                         // System.out.println(opcode.name());
-
+                        /*
                         String name = tokens[1];
                         if(name.equalsIgnoreCase("main")){
                             ActivationFrame aFrame = new ActivationFrame(name);
                             aFrame.blockStack.push(new Block());
                             activationFrameStack.push(aFrame);
                         }
-
+                        */
                         break;
                     }
 
@@ -522,7 +527,7 @@ public class GPSCPU {
                     }
 
                     case PRINT:
-                        System.out.println(opcode.name());
+                        //System.out.println(opcode.name());
                         // Need to check if any text will be present in the print statement. otherwise below code works fine
 
                         String printVariable = tokens[1];
