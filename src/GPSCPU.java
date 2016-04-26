@@ -56,9 +56,10 @@ public class GPSCPU {
         }
         */
 
-        for(int ip=0; ip<code.size(); ip++){
+        for(ip=0; ip<code.size(); ){
             System.out.println(code.get(ip));
             String[] tokens = code.get(ip).split(" ");
+            ip++;
             //System.out.println("token extracted: " + tokens[0]);
             if(isValidOpcode(tokens[0])){
                 // System.out.println("Valid opcode found");
@@ -72,6 +73,7 @@ public class GPSCPU {
                         ActivationFrame aFrame = activationFrameStack.peek();
                         int integerLiteral = Integer.parseInt(tokens[1]);
                         aFrame.operandStack.push(new Symbol(0, integerLiteral));
+
                         break;
                     }
                     case BSTORE: {
@@ -84,6 +86,7 @@ public class GPSCPU {
                             booleanToInteger = 1;
                         }
                         aFrame.operandStack.push(new Symbol(1, booleanToInteger));
+
                         break;
                     }
                     case STORE: {
@@ -100,6 +103,7 @@ public class GPSCPU {
                             System.out.println("Exiting...");
                             System.exit(0);
                         }
+
                         break;
                     }
 
@@ -140,6 +144,7 @@ public class GPSCPU {
                             System.exit(0);
                         }
                         aFrame.operandStack.push(new Symbol(0, operand1.getValue() + operand2.getValue()));
+
                         break;
                     }
 
@@ -155,6 +160,7 @@ public class GPSCPU {
                             System.exit(0);
                         }
                         aFrame.operandStack.push(new Symbol(0, operand2.getValue() - operand1.getValue()));
+
                         break;
                     }
 
@@ -170,6 +176,7 @@ public class GPSCPU {
                             System.exit(0);
                         }
                         aFrame.operandStack.push(new Symbol(0, operand2.getValue() * operand1.getValue()));
+
                         break;
                     }
 
@@ -189,6 +196,7 @@ public class GPSCPU {
                             System.exit(0);
                         }
                         aFrame.operandStack.push(new Symbol(0, operand2.getValue() / operand1.getValue()));
+
                         break;
                     }
 
@@ -209,6 +217,7 @@ public class GPSCPU {
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
                         }
+
                         break;
                     }
 
@@ -229,6 +238,7 @@ public class GPSCPU {
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
                         }
+
                         break;
                     }
 
@@ -249,6 +259,7 @@ public class GPSCPU {
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
                         }
+
                         break;
                     }
 
@@ -270,6 +281,7 @@ public class GPSCPU {
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
                         }
+
                         break;
                     }
 
@@ -291,6 +303,7 @@ public class GPSCPU {
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
                         }
+
                         break;
                     }
 
@@ -312,6 +325,7 @@ public class GPSCPU {
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
                         }
+
                         break;
                     }
 
@@ -333,6 +347,7 @@ public class GPSCPU {
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
                         }
+
                         break;
                     }
 
@@ -361,14 +376,11 @@ public class GPSCPU {
                                         ifBlockStatementTokens = ifBlockStatement.split(" ");
                                     }
                                 }else{
-                                    ip = aFrame.blockStack.peek().endIndex;
+                                    ip = aFrame.blockStack.peek().endIndex + 1;
                                     aFrame.blockStack.pop();
                                 }
                             }
-                            /*
-                            else{
-                                aFrame.blockStack.push(new Block());
-                            }*/
+
                         }else{
                             System.out.println("Error: The loop-condition expression cannot be evaluated to a boolean value");
                             System.out.println("Exiting...");
@@ -382,7 +394,7 @@ public class GPSCPU {
                         // System.out.println(opcode.name());
                         ActivationFrame aFrame = activationFrameStack.peek();
                         if(aFrame.blockStack.peek().endIndex <= aFrame.blockStack.peek().startIndex) {
-                            aFrame.blockStack.peek().endIndex = ip;
+                            aFrame.blockStack.peek().endIndex = ip-1;
                         }
                         ip = aFrame.blockStack.peek().startIndex;
                         break;
@@ -390,14 +402,6 @@ public class GPSCPU {
 
                     case FUNC_START: {
                         // System.out.println(opcode.name());
-                        /*
-                        String name = tokens[1];
-                        if(name.equalsIgnoreCase("main")){
-                            ActivationFrame aFrame = new ActivationFrame(name);
-                            aFrame.blockStack.push(new Block());
-                            activationFrameStack.push(aFrame);
-                        }
-                        */
                         break;
                     }
 
@@ -498,6 +502,7 @@ public class GPSCPU {
                         }else{
                             aFrame.returnValue = returnValue;
                         }
+
                         break;
                     }
 
@@ -531,7 +536,7 @@ public class GPSCPU {
 
                         // printOperandStack(calledFunctionFrame.operandStack);
 
-                        calledFunctionFrame.returnAddress = ip+1;
+                        calledFunctionFrame.returnAddress = ip;
                         activationFrameStack.push(calledFunctionFrame);
                         executeCode(bytecode.getFunctions().get(invokedFunctionName).getCodeLines().code);
                         break;
@@ -586,6 +591,7 @@ public class GPSCPU {
                         // create new block and push it on the bloc stack of current activation record
                         // ActivationFrame aFrame = activationFrameStack.peek();
                         // aFrame.blockStack.push(new Block());
+
                         break;
                     }
 
@@ -594,6 +600,7 @@ public class GPSCPU {
                         // Remove the last block from the block stack of the current activation frame
                         ActivationFrame aFrame = activationFrameStack.peek();
                         aFrame.operandStack.pop();
+
                         break;
                     }
 
@@ -628,6 +635,7 @@ public class GPSCPU {
                         // Remove the last block from the block stack of the current activation frame
                         ActivationFrame aFrame = activationFrameStack.peek();
                         aFrame.blockStack.pop();
+
                         break;
                     }
 
@@ -662,6 +670,7 @@ public class GPSCPU {
                         // Remove the last block from the block stack of the current activation frame
                         ActivationFrame aFrame = activationFrameStack.peek();
                         aFrame.blockStack.pop();
+
                         break;
                     }
 
