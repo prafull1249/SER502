@@ -361,7 +361,7 @@ public class GPSCPU {
                                         ifBlockStatementTokens = ifBlockStatement.split(" ");
                                     }
                                 }else{
-                                    ip = aFrame.blockStack.peek().endIndex + 1;
+                                    ip = aFrame.blockStack.peek().endIndex;
                                     aFrame.blockStack.pop();
                                 }
                             }
@@ -405,11 +405,22 @@ public class GPSCPU {
                         //System.out.println(opcode.name());
 
                         ActivationFrame aFrame = activationFrameStack.peek();
-                        Symbol returnValue = aFrame.returnValue;
                         ip = aFrame.returnAddress;
+                        boolean returningValue = false;
+                        Symbol returnValue = new Symbol();
+                        if(bytecode.getFunctions().get(aFrame.functionName).getReturnType() != -1 ){
+                            returnValue = aFrame.returnValue;
+                            returningValue = true;
+                        }
+
+
                         activationFrameStack.pop();
-                        activationFrameStack.peek().operandStack.push(returnValue);
-                        break;
+                        if(returningValue){
+                            activationFrameStack.peek().operandStack.push(returnValue);
+                        }
+
+                        return;
+                        //break;
                     }
 
                     case TRETURN: {
