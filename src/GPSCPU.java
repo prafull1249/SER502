@@ -48,18 +48,20 @@ public class GPSCPU {
     }
 
     public void executeCode(ArrayList<String> code){
-        //System.out.println(code);
-        /*
-        for(Opcode o : Opcode.values()){
-            String t = o.name();
-            System.out.println(t);
-        }
-        */
-
+        boolean debug = false;
         for(ip=0; ip<code.size(); ){
-            System.out.println(code.get(ip));
+            if(debug)
+                System.out.printf("Executing [%03d] %20s", ip, code.get(ip));
+
             String[] tokens = code.get(ip).split(" ");
             ip++;
+
+            if(debug){
+                System.out.printf("\t \t IP = %3d \t \t Operand Stack: [",ip);
+                printOperandStack(activationFrameStack.peek().operandStack);
+                System.out.println("]");
+            }
+
             //System.out.println("token extracted: " + tokens[0]);
             if(isValidOpcode(tokens[0])){
                 // System.out.println("Valid opcode found");
@@ -814,6 +816,5 @@ public class GPSCPU {
         for(int i=stack.size()-1; i>=0; i--){
             System.out.print(stack.elementAt(i).getValue() + " ");
         }
-        System.out.println();
     }
 }
