@@ -48,7 +48,7 @@ public class GPSCPU {
     }
 
     public void executeCode(ArrayList<String> code){
-        boolean debug = false;
+        boolean debug = true;
         for(ip=0; ip<code.size(); ){
             if(debug)
                 System.out.printf("Executing [%03d] %20s", ip, code.get(ip));
@@ -501,11 +501,20 @@ public class GPSCPU {
                         if(returnValue.getType() != bytecode.getFunctions().get(currentFunctionName).getReturnType()){
                             System.out.println("Error: Return type doesn't match with the definition./nExiting...");
                             System.exit(0);
-                        }else{
-                            aFrame.returnValue = returnValue;
                         }
 
-                        break;
+                        /*else{
+                            aFrame.returnValue = returnValue;
+                        }*/
+
+                        //break;
+
+                        ip = aFrame.returnAddress;
+
+                        activationFrameStack.pop();
+                        activationFrameStack.peek().operandStack.push(returnValue);
+
+                        return;
                     }
 
                     case CALL: {
@@ -613,6 +622,7 @@ public class GPSCPU {
                         ActivationFrame aFrame = activationFrameStack.peek();
                         Symbol ifExpressionResult = aFrame.operandStack.peek();
                         if(ifExpressionResult.getType()==1){
+                            aFrame.blockStack.push(new Block());
                             if(ifExpressionResult.getValue() == 0){
                                 String ifBlockStatement = code.get(++ip);
                                 String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
@@ -620,9 +630,10 @@ public class GPSCPU {
                                     ifBlockStatement = code.get(++ip);
                                     ifBlockStatementTokens = ifBlockStatement.split(" ");
                                 }
-                            }else{
+                            }/*
+                            else{
                                 aFrame.blockStack.push(new Block());
-                            }
+                            }*/
                         }else{
                             System.out.println("Error: The if-condition expression cannot be evaluated to a boolean value");
                             System.out.println("Exiting...");
@@ -648,6 +659,7 @@ public class GPSCPU {
                         ActivationFrame aFrame = activationFrameStack.peek();
                         Symbol ifExpressionResult = aFrame.operandStack.peek();
                         if(ifExpressionResult.getType()==1){
+                            aFrame.blockStack.push(new Block());
                             if(ifExpressionResult.getValue() == 1){
                                 String ifBlockStatement = code.get(++ip);
                                 String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
@@ -655,9 +667,11 @@ public class GPSCPU {
                                     ifBlockStatement = code.get(++ip);
                                     ifBlockStatementTokens = ifBlockStatement.split(" ");
                                 }
-                            }else{
+                            }/*else
+                            {
                                 aFrame.blockStack.push(new Block());
                             }
+                            */
                         }else{
                             System.out.println("Error: The if expression cannot be evaluated to a boolean value");
                             System.out.println("Exiting...");
@@ -770,10 +784,18 @@ public class GPSCPU {
         ActivationFrame aFrame = activationFrameStack.peek();
         Symbol variable = new Symbol();
 
+        /*
         while (aFrame.blockStack.iterator().hasNext()) {
             Block block = aFrame.blockStack.iterator().next();
             if (block.symbolTable.containsKey(variableName)) {
                 variable = block.symbolTable.get(variableName);
+                break;
+            }
+        }*/
+
+        for(int i=aFrame.blockStack.size()-1; i>=0; i--){
+            if(aFrame.blockStack.elementAt(i).symbolTable.containsKey(variableName)){
+                variable = aFrame.blockStack.elementAt(i).symbolTable.get(variableName);
                 break;
             }
         }
