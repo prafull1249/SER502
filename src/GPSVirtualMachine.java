@@ -83,7 +83,7 @@ public class GPSVirtualMachine {
 
             br.close();
         }catch (Exception e){
-            System.out.println("Error in parsing the file" + e.getMessage());
+            System.err.println("Error in parsing the file: " + e.getMessage());
         }
 
         return new Bytecode(fullcode, globalDeclaration, functions);
@@ -105,11 +105,11 @@ public class GPSVirtualMachine {
                     }else if(tokens[1].equalsIgnoreCase("VOID")){
                         returnType = -1;
                     }else{
-                        System.out.println("Incorrect return-type for function: "+name);
+                        System.err.println("Error: Incorrect return-type for function: "+name);
                         System.exit(0);
                     }
                 }else{
-                    System.out.println("Return-type not specified for function: "+name);
+                    System.err.println("Error: Return-type not specified for function: "+name);
                     System.exit(0);
                 }
             }else if(tokens[0].equalsIgnoreCase(Opcode.IPARAM.toString())){

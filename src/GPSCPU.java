@@ -43,7 +43,7 @@ public class GPSCPU {
             executeCode(bytecode.getFunctions().get("main").getCodeLines().code);
 
         }else{
-            System.out.println("Function main is empty!");
+            System.err.println("Function main is empty!");
         }
     }
 
@@ -101,7 +101,7 @@ public class GPSCPU {
                             Symbol variable = getVariable(variableName);
                             aFrame.operandStack.push(variable);
                         }else{
-                            System.out.println("Error: Variable " + variableName + " not found");
+                            System.err.println("Error: Variable " + variableName + " not found");
                             System.out.println("Exiting...");
                             System.exit(0);
                         }
@@ -119,14 +119,14 @@ public class GPSCPU {
                             Symbol lhs = getVariable(variableName);
                             Symbol rhs = aFrame.operandStack.pop();
                             if(lhs.getType() != rhs.getType()){
-                                System.out.println("Error: Incompatible type /nExiting...");
+                                System.err.println("Error: Incompatible type /nExiting...");
                                 System.exit(0);
                             }else{
                                 //System.out.println("Assigning value "+variableName+": "+rhs.getValue());
                                 lhs.setValue(rhs.getValue());
                             }
                         }else{
-                            System.out.println("Error: Variable " + variableName + " not found");
+                            System.err.println("Error: Variable " + variableName + " not found");
                             System.out.println("Exiting...");
                             System.exit(0);
                         }
@@ -141,7 +141,7 @@ public class GPSCPU {
                         Symbol operand1 = aFrame.operandStack.pop();
                         Symbol operand2 = aFrame.operandStack.pop();
                         if (operand1.getType() != 0 || operand2.getType() != 0) {
-                            System.out.println("Error: Addition of only integers are supported");
+                            System.err.println("Error: Addition of only integers are supported");
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
@@ -157,7 +157,7 @@ public class GPSCPU {
                         Symbol operand1 = aFrame.operandStack.pop();
                         Symbol operand2 = aFrame.operandStack.pop();
                         if (operand1.getType() != 0 || operand2.getType() != 0) {
-                            System.out.println("Error: Subtraction of only integers are supported");
+                            System.err.println("Error: Subtraction of only integers are supported");
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
@@ -173,7 +173,7 @@ public class GPSCPU {
                         Symbol operand1 = aFrame.operandStack.pop();
                         Symbol operand2 = aFrame.operandStack.pop();
                         if (operand1.getType() != 0 || operand2.getType() != 0) {
-                            System.out.println("Error: Multiplication of only integers are supported");
+                            System.err.println("Error: Multiplication of only integers are supported");
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
@@ -189,11 +189,11 @@ public class GPSCPU {
                         Symbol operand1 = aFrame.operandStack.pop();
                         Symbol operand2 = aFrame.operandStack.pop();
                         if (operand1.getType() != 0 || operand2.getType() != 0) {
-                            System.out.println("Error: Multiplication of only integers are supported");
+                            System.err.println("Error: Multiplication of only integers are supported");
                             System.out.println("Exiting..");
                             System.exit(0);
                         }else if(operand1.getValue() == 0){
-                            System.out.println("Error: Division by zero");
+                            System.err.println("Error: Division by zero");
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
@@ -210,7 +210,7 @@ public class GPSCPU {
                         Symbol operand2 = formOperand(tokens[2]);
 
                         if (operand1.getType() != operand2.getType()) {
-                            System.out.println("Error: Comparison between operands of different types");
+                            System.err.println("Error: Comparison between operands of different types");
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
@@ -231,7 +231,7 @@ public class GPSCPU {
                         Symbol operand2 = formOperand(tokens[2]);
 
                         if (operand1.getType() != 0 || operand2.getType() != 0) {
-                            System.out.println("Error: Operands are not of type integer");
+                            System.err.println("Error: Operands are not of type integer");
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
@@ -252,7 +252,7 @@ public class GPSCPU {
                         Symbol operand2 = formOperand(tokens[2]);
 
                         if (operand1.getType() != 0 || operand2.getType() != 0) {
-                            System.out.println("Error: Operands are not of type integer");
+                            System.err.println("Error: Operands are not of type integer");
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
@@ -274,7 +274,7 @@ public class GPSCPU {
                         Symbol operand2 = formOperand(tokens[2]);
 
                         if (operand1.getType() != 0 || operand2.getType() != 0) {
-                            System.out.println("Error: Operands are not of type integer");
+                            System.err.println("Error: Operands are not of type integer");
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
@@ -296,7 +296,7 @@ public class GPSCPU {
                         Symbol operand2 = formOperand(tokens[2]);
 
                         if (operand1.getType() != 0 || operand2.getType() != 0) {
-                            System.out.println("Error: Operands are not of type integer");
+                            System.err.println("Error: Operands are not of type integer");
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
@@ -318,7 +318,7 @@ public class GPSCPU {
                         Symbol operand2 = formOperand(tokens[2]);
 
                         if (operand1.getType() != 1 || operand2.getType() != 1) {
-                            System.out.println("Error: Operands are not of type boolean");
+                            System.err.println("Error: Operands are not of type boolean");
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
@@ -340,7 +340,7 @@ public class GPSCPU {
                         Symbol operand2 = formOperand(tokens[2]);
 
                         if (operand1.getType() != 1 || operand2.getType() != 1) {
-                            System.out.println("Error: Operands are not of type boolean");
+                            System.err.println("Error: Operands are not of type boolean");
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
@@ -384,7 +384,7 @@ public class GPSCPU {
                             }
 
                         }else{
-                            System.out.println("Error: The loop-condition expression cannot be evaluated to a boolean value");
+                            System.err.println("Error: The loop-condition expression cannot be evaluated to a boolean value");
                             System.out.println("Exiting...");
                             System.exit(0);
                         }
@@ -462,7 +462,7 @@ public class GPSCPU {
                             Symbol parameterPassed = aFrame.operandStack.pop();
 
                             if(parameterPassed.getType() != 0){
-                                System.out.println("Error: Type of parameter passed and defined does not match./nExiting");
+                                System.err.println("Error: Type of parameter passed and defined does not match./nExiting");
                                 System.exit(0);
                             }
                             currentBlock.symbolTable.put(parameterName, parameterPassed);
@@ -481,7 +481,7 @@ public class GPSCPU {
                             Block currentBlock = aFrame.blockStack.peek();
                             Symbol parameterPassed = aFrame.operandStack.pop();
                             if(parameterPassed.getType() != 1){
-                                System.out.println("Error: Type of parameter passed and defined does not match./nExiting");
+                                System.err.println("Error: Type of parameter passed and defined does not match./nExiting");
                                 System.exit(0);
                             }
                             currentBlock.symbolTable.put(parameterName, parameterPassed);
@@ -499,7 +499,7 @@ public class GPSCPU {
                         String currentFunctionName = aFrame.functionName;
 
                         if(returnValue.getType() != bytecode.getFunctions().get(currentFunctionName).getReturnType()){
-                            System.out.println("Error: Return type doesn't match with the definition./nExiting...");
+                            System.err.println("Error: Return type doesn't match with the definition./nExiting...");
                             System.exit(0);
                         }
 
@@ -513,7 +513,7 @@ public class GPSCPU {
 
                         activationFrameStack.pop();
                         activationFrameStack.peek().operandStack.push(returnValue);
-
+                        System.out.println();
                         return;
                     }
 
@@ -523,7 +523,7 @@ public class GPSCPU {
                         ActivationFrame aFrame = activationFrameStack.peek();
                         String invokedFunctionName = tokens[1];
                         if(! bytecode.getFunctions().containsKey(invokedFunctionName)){
-                            System.out.println("Error: Called function "+invokedFunctionName+" is not defined.\nExiting...");
+                            System.err.println("Error: Called function "+invokedFunctionName+" is not defined.\nExiting...");
                             System.exit(0);
                         }
 
@@ -533,7 +533,7 @@ public class GPSCPU {
                             if(isNumeric(numberOfParametersString)){
                                 numberOfParameters = Integer.parseInt(numberOfParametersString);
                                 if(numberOfParameters != bytecode.getFunctions().get(invokedFunctionName).getParams().size()){
-                                    System.out.println("Error: Number of parameters passed doesn't match with the definition.\nExiting...");
+                                    System.err.println("Error: Number of parameters passed doesn't match with the definition.\nExiting...");
                                     System.exit(0);
                                 }
                             }
@@ -549,6 +549,7 @@ public class GPSCPU {
 
                         calledFunctionFrame.returnAddress = ip;
                         activationFrameStack.push(calledFunctionFrame);
+                        System.out.println();
                         executeCode(bytecode.getFunctions().get(invokedFunctionName).getCodeLines().code);
                         break;
                     }
@@ -635,7 +636,7 @@ public class GPSCPU {
                                 aFrame.blockStack.push(new Block());
                             }*/
                         }else{
-                            System.out.println("Error: The if-condition expression cannot be evaluated to a boolean value");
+                            System.err.println("Error: The if-condition expression cannot be evaluated to a boolean value");
                             System.out.println("Exiting...");
                             System.exit(0);
                         }
@@ -673,7 +674,7 @@ public class GPSCPU {
                             }
                             */
                         }else{
-                            System.out.println("Error: The if expression cannot be evaluated to a boolean value");
+                            System.err.println("Error: The if expression cannot be evaluated to a boolean value");
                             System.out.println("Exiting...");
                             System.exit(0);
                         }
@@ -692,7 +693,7 @@ public class GPSCPU {
 
                     case ILLEGAL: {
                         System.out.println(opcode.name());
-                        System.out.println("Illegal opocode: "+ tokens[0]);
+                        System.err.println("Illegal opocode: "+ tokens[0]);
                         System.out.println("Exiting...");
                         System.exit(0);
                         break;
