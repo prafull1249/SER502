@@ -145,7 +145,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        aFrame.operandStack.push(new Symbol(0, operand1.getValue() + operand2.getValue()));
+                        aFrame.operandStack.push(new Symbol(0, (int)operand1.getValue() + (int)operand2.getValue()));
 
                         break;
                     }
@@ -161,7 +161,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        aFrame.operandStack.push(new Symbol(0, operand2.getValue() - operand1.getValue()));
+                        aFrame.operandStack.push(new Symbol(0, (int)operand2.getValue() - (int)operand1.getValue()));
 
                         break;
                     }
@@ -177,7 +177,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        aFrame.operandStack.push(new Symbol(0, operand2.getValue() * operand1.getValue()));
+                        aFrame.operandStack.push(new Symbol(0, (int)operand2.getValue() * (int)operand1.getValue()));
 
                         break;
                     }
@@ -192,12 +192,12 @@ public class GPSCPU {
                             System.err.println("Error: Multiplication of only integers are supported");
                             System.out.println("Exiting..");
                             System.exit(0);
-                        }else if(operand1.getValue() == 0){
+                        }else if((int)operand1.getValue() == 0){
                             System.err.println("Error: Division by zero");
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        aFrame.operandStack.push(new Symbol(0, operand2.getValue() / operand1.getValue()));
+                        aFrame.operandStack.push(new Symbol(0, (int)operand2.getValue() / (int)operand1.getValue()));
 
                         break;
                     }
@@ -235,7 +235,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        if(operand1.getValue() > operand2.getValue()){
+                        if((int)operand1.getValue() > (int)operand2.getValue()){
                             aFrame.operandStack.push(new Symbol(1, 1));
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
@@ -256,7 +256,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        if(operand1.getValue() >= operand2.getValue()){
+                        if((int)operand1.getValue() >= (int)operand2.getValue()){
                             aFrame.operandStack.push(new Symbol(1, 1));
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
@@ -278,7 +278,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        if(operand1.getValue() < operand2.getValue()){
+                        if((int)operand1.getValue() < (int)operand2.getValue()){
                             aFrame.operandStack.push(new Symbol(1, 1));
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
@@ -300,7 +300,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        if(operand1.getValue() <= operand2.getValue()){
+                        if((int)operand1.getValue() <= (int)operand2.getValue()){
                             aFrame.operandStack.push(new Symbol(1, 1));
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
@@ -322,7 +322,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        if(operand1.getValue() == 1 || operand2.getValue() == 1){
+                        if((int)operand1.getValue() == 1 || (int)operand2.getValue() == 1){
                             aFrame.operandStack.push(new Symbol(1, 1));
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
@@ -344,7 +344,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        if(operand1.getValue() == 1 && operand2.getValue() == 1){
+                        if((int)operand1.getValue() == 1 && (int)operand2.getValue() == 1){
                             aFrame.operandStack.push(new Symbol(1, 1));
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
@@ -369,7 +369,7 @@ public class GPSCPU {
                         Symbol ifExpressionResult = aFrame.operandStack.pop();
 
                         if(ifExpressionResult.getType()==1){
-                            if(ifExpressionResult.getValue() == 0){
+                            if((int)ifExpressionResult.getValue() == 0){
                                 if(aFrame.blockStack.peek().endIndex <= aFrame.blockStack.peek().startIndex){
                                     String ifBlockStatement = code.get(++ip);
                                     String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
@@ -564,7 +564,7 @@ public class GPSCPU {
                         }else if(isVariableDefined(printVariable)){
                             Symbol variable = getVariable(printVariable);
                             if(variable.getType() == 1){
-                                if(variable.getValue() == 0){
+                                if((int)variable.getValue() == 0){
                                     System.out.println("false");
                                 }else{
                                     System.out.println("true");
@@ -624,7 +624,7 @@ public class GPSCPU {
                         Symbol ifExpressionResult = aFrame.operandStack.peek();
                         if(ifExpressionResult.getType()==1){
                             aFrame.blockStack.push(new Block());
-                            if(ifExpressionResult.getValue() == 0){
+                            if((int)ifExpressionResult.getValue() == 0){
                                 String ifBlockStatement = code.get(++ip);
                                 String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
                                 while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_BLOCK_END.toString()))){
@@ -661,7 +661,7 @@ public class GPSCPU {
                         Symbol ifExpressionResult = aFrame.operandStack.peek();
                         if(ifExpressionResult.getType()==1){
                             aFrame.blockStack.push(new Block());
-                            if(ifExpressionResult.getValue() == 1){
+                            if((int)ifExpressionResult.getValue() == 1){
                                 String ifBlockStatement = code.get(++ip);
                                 String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
                                 while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.ELSE_BLOCK_END.toString()))){
