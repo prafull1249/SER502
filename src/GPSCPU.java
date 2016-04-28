@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * Created by Satyam on 21-04-2016.
@@ -698,6 +699,74 @@ public class GPSCPU {
                         System.exit(0);
                         break;
                     }
+
+                    case STACK: {
+                        // declaring the stack and inserting it into symbol table
+                        // System.out.println(opcode.name());
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        Stack<Integer> st = new Stack<>();
+                        Symbol sym = new Symbol(2, st);
+                        Block currBlock = aFrame.blockStack.peek();
+                        currBlock.symbolTable.put(tokens[1], sym);
+                        break;
+                    }
+
+                    case PUSH:{
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        String variableName = tokens[1];
+                        String val = tokens[2];
+                        if(isInt(val)){
+                            int value = Integer.parseInt(val);
+                            if(isVariableDefined(variableName)){
+                                Symbol lhs = getVariable(variableName);
+                                if(lhs.getType() != 2){
+                                    System.err.println("Error: Incompatible Stack Operation /nExiting...");
+                                    System.exit(0);
+                                }else{
+                                    //System.out.println("Assigning value "+variableName+": "+rhs.getValue());
+                                    Stack st = (Stack) lhs.getValue();
+                                    st.push(value);
+                                }
+                            }else{
+                                System.err.println("Error: Variable " + variableName + " not found");
+                                System.out.println("Exiting...");
+                                System.exit(0);
+                            }
+                        }else{
+                            System.err.println("Error: Invalid value being pushed to stack ");
+                            System.out.println("Exiting...");
+                            System.exit(0);
+                        }
+                        break;
+                    }
+
+                    case POP:{
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        String variableName = tokens[1];
+                        Symbol lhs = getVariable(variableName);
+                        Stack st = (Stack) lhs.getValue();
+                        if(st.size() == 0){
+                            System.err.println("Error: Incompatible Stack Operation on empty Stack/nExiting...");
+                            System.exit(0);
+                        }else{
+                            int temp = (int) st.pop();
+                            aFrame.operandStack.push(new Symbol(0, temp));
+                        }
+                    }
+
+                    case PEEK:{
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        String variableName = tokens[1];
+                        Symbol lhs = getVariable(variableName);
+                        Stack st = (Stack) lhs.getValue();
+                        if(st.size() == 0){
+                            System.err.println("Error: Incompatible Stack Operation on empty Stack/nExiting...");
+                            System.exit(0);
+                        }else{
+                            int temp = (int) st.peek();
+                            aFrame.operandStack.push(new Symbol(0, temp));
+                        }
+                    }
                 }
             }
         }
@@ -839,5 +908,14 @@ public class GPSCPU {
         for(int i=stack.size()-1; i>=0; i--){
             System.out.print(stack.elementAt(i).getValue() + " ");
         }
+    }
+
+    public static boolean isInt(String s)
+    {
+        try
+        { int i = Integer.parseInt(s); return true; }
+
+        catch(NumberFormatException er)
+        { return false; }
     }
 }

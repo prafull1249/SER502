@@ -4,6 +4,7 @@
 public class Symbol {
     // type = 0 for int
     // type = 1 for bool
+    // type = 2 for stack
     private int type;
     private Object value;
 
