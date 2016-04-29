@@ -11,7 +11,7 @@ import java.io.IOException;
 public class MainParser {
 
     public static void main(String args[]) throws IOException {
-        ANTLRInputStream input  = new ANTLRFileStream("C:\\Users\\Prafull\\work\\SER502\\parser\\AntlrProj\\org.antlr.proj.parse\\intermediate_checkScope");
+        ANTLRInputStream input  = new ANTLRFileStream("C:\\Users\\Prafull\\work\\SER502\\parser\\AntlrProj\\org.antlr.proj.parse\\intermediate_checkStack");
         System.out.println(input.toString());
         GrammarLexer lexer = new GrammarLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
