@@ -11,8 +11,9 @@ import java.util.Map.Entry;
 public class GPSVirtualMachine {
     public static void main(String[] args) {
         try {
-            String bytecodeFile = "FactorialIterative.gpsb";
+            //String bytecodeFile = "FactorialIterative.gpsb";
             //String bytecodeFile = "FactorialRecursive.gspb";
+            String bytecodeFile = "StackDemo.gpsb";
             if(new File(bytecodeFile).isFile()) {
                 System.out.println("Bytecode file found...");
             }
