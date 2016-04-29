@@ -1,22 +1,37 @@
-func_start checkStack
-treturn void
-stack s
-stack p
-idec n
-idec t
-istore 3
-assign n
-istore 2
-store n
-mod
-assign t
-eq t 1
+func_start sum20odd
+treturn int
+iparam n
+idec num
+idec sum
+istore 1
+assign num
+istore 0
+assign sum
+lte num n
+loop_start
+idec temp=
+eq temp 1
 if_start
 if_block_start
+store sum
+store num
+add
+assign sum
+print num
 if_block_end
 if_end
+store num
+istore 1
+add
+assign num
+loop_end
+return sum
 func_end
 func_start main
 treturn void
-call checkStack 0
+idec result
+istore 20
+call sum20odd 1
+assign result
+print result
 func_end

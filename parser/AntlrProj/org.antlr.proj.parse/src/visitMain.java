@@ -472,6 +472,16 @@ public class visitMain extends GrammarBaseVisitor<String>{
         return null;
     }
 
+    @Override
+    public String visitPrintStatement(GrammarParser.PrintStatementContext ctx) {
+        try{
+            writeToFile("print " + ctx.getChild(1).getText());
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     @Override
     public String visitFormalPart(GrammarParser.FormalPartContext ctx) {

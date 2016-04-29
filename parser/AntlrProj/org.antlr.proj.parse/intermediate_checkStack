@@ -3,11 +3,14 @@ func checkStack(:void)
 	stack s
 	stack p
 	int n,t
-	n = 3
-	t = n % 2
-	if(t==1){
-	    print n
-	    }
+
+	push(s,1)
+	push(s,2)
+    n = n*1+2*3
+	n = pop(s)
+	print n
+    n = peek(s)
+	print n
 }
 
 func main(:void){
