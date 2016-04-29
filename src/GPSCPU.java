@@ -744,13 +744,19 @@ public class GPSCPU {
                         ActivationFrame aFrame = activationFrameStack.peek();
                         String variableName = tokens[1];
                         Symbol lhs = getVariable(variableName);
-                        Stack st = (Stack) lhs.getValue();
-                        if(st.size() == 0){
-                            System.err.println("Error: Incompatible Stack Operation on empty Stack/nExiting...");
+                        try{
+                            Stack st = (Stack) lhs.getValue();
+                            if(st.size() == 0){
+                                System.err.println("Error: Incompatible Stack Operation on empty Stack/nExiting...");
+                                System.exit(0);
+                            }else{
+                                int temp = (int) st.pop();
+                                aFrame.operandStack.push(new Symbol(0, temp));
+                            }
+                        }catch (Exception e){
+                            System.err.println("Error: Incompatible Stack Operation");
+                            e.printStackTrace();
                             System.exit(0);
-                        }else{
-                            int temp = (int) st.pop();
-                            aFrame.operandStack.push(new Symbol(0, temp));
                         }
                         break;
                     }
@@ -759,13 +765,35 @@ public class GPSCPU {
                         ActivationFrame aFrame = activationFrameStack.peek();
                         String variableName = tokens[1];
                         Symbol lhs = getVariable(variableName);
-                        Stack st = (Stack) lhs.getValue();
-                        if(st.size() == 0){
-                            System.err.println("Error: Incompatible Stack Operation on empty Stack/nExiting...");
+                        try{
+                            Stack st = (Stack) lhs.getValue();
+                            if(st.size() == 0){
+                                System.err.println("Error: Incompatible Stack Operation on empty Stack/nExiting...");
+                                System.exit(0);
+                            }else{
+                                int temp = (int) st.peek();
+                                aFrame.operandStack.push(new Symbol(0, temp));
+                            }
+                        }catch (Exception e){
+                            System.err.println("Error: Incompatible Stack Operation");
+                            e.printStackTrace();
                             System.exit(0);
-                        }else{
-                            int temp = (int) st.peek();
+                        }
+                        break;
+                    }
+
+                    case SIZE:{
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        String variableName = tokens[1];
+                        Symbol lhs = getVariable(variableName);
+                        try{
+                            Stack st = (Stack) lhs.getValue();
+                            int temp = st.size();
                             aFrame.operandStack.push(new Symbol(0, temp));
+                        }catch (Exception e){
+                            System.err.println("Error: Incompatible Stack Operation");
+                            e.printStackTrace();
+                            System.exit(0);
                         }
                         break;
                     }

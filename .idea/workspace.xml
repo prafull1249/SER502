@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="711377df-aa3e-4bc2-ab26-3f80952b2db8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GPSCPU.java" afterPath="$PROJECT_DIR$/src/GPSCPU.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Opcode.java" afterPath="$PROJECT_DIR$/src/Opcode.java" />
     </list>
     <ignored path="GPS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,8 +40,8 @@
       <file leaf-file-name="GPSCPU.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GPSCPU.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="769" column="30" selection-start-line="769" selection-start-column="30" selection-end-line="769" selection-end-column="30" />
+            <state relative-caret-position="-1200">
+              <caret line="780" column="25" selection-start-line="780" selection-start-column="25" selection-end-line="780" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -93,8 +93,8 @@
       <file leaf-file-name="Opcode.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Opcode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+            <state relative-caret-position="457">
+              <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -142,9 +142,9 @@
         <option value="$PROJECT_DIR$/GPSFirstBytecode.gpsb" />
         <option value="$PROJECT_DIR$/FactorialRecursive.gspb" />
         <option value="$PROJECT_DIR$/FactorialIterative.gpsb" />
-        <option value="$PROJECT_DIR$/src/Opcode.java" />
         <option value="$PROJECT_DIR$/StackDemo.gpsb" />
         <option value="$PROJECT_DIR$/src/GPSVirtualMachine.java" />
+        <option value="$PROJECT_DIR$/src/Opcode.java" />
         <option value="$PROJECT_DIR$/src/GPSCPU.java" />
       </list>
     </option>
@@ -436,7 +436,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1378" height="754" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -853,14 +853,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Opcode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/LinkedStack.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1173">
@@ -914,10 +906,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Opcode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/GPSCPU.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="769" column="30" selection-start-line="769" selection-start-column="30" selection-end-line="769" selection-end-column="30" />
+        <state relative-caret-position="-1200">
+          <caret line="780" column="25" selection-start-line="780" selection-start-column="25" selection-end-line="780" selection-end-column="25" />
           <folding />
         </state>
       </provider>

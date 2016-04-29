@@ -39,5 +39,6 @@ public enum Opcode {
     PUSH,
     POP,
     PEEK,
+    SIZE,
     ILLEGAL;
 }
