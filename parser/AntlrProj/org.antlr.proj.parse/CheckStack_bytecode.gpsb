@@ -18,5 +18,5 @@ pop s
 func_end
 func_start main
 treturn void
-call checkStack 2
+call checkStack 0
 func_end
