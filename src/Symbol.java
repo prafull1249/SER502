@@ -4,15 +4,16 @@
 public class Symbol {
     // type = 0 for int
     // type = 1 for bool
+    // type = 2 for stack
     private int type;
-    private int value;
+    private Object value;
 
 
-    public int getValue() {
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(Object value) {
         this.value = value;
     }
 
@@ -24,7 +25,7 @@ public class Symbol {
         this.type = type;
     }
 
-    Symbol(int type, int value){
+    Symbol(int type, Object value){
         this.type = type;
         this.value = value;
     }
@@ -35,6 +36,6 @@ public class Symbol {
 
     Symbol(){
         type = -1;
-        value = 0;
+//        value = 0;
     }
 }

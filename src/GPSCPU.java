@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * Created by Satyam on 21-04-2016.
@@ -145,7 +146,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        aFrame.operandStack.push(new Symbol(0, operand1.getValue() + operand2.getValue()));
+                        aFrame.operandStack.push(new Symbol(0, (int)operand1.getValue() + (int)operand2.getValue()));
 
                         break;
                     }
@@ -161,7 +162,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        aFrame.operandStack.push(new Symbol(0, operand2.getValue() - operand1.getValue()));
+                        aFrame.operandStack.push(new Symbol(0, (int)operand2.getValue() - (int)operand1.getValue()));
 
                         break;
                     }
@@ -177,7 +178,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        aFrame.operandStack.push(new Symbol(0, operand2.getValue() * operand1.getValue()));
+                        aFrame.operandStack.push(new Symbol(0, (int)operand2.getValue() * (int)operand1.getValue()));
 
                         break;
                     }
@@ -192,12 +193,12 @@ public class GPSCPU {
                             System.err.println("Error: Multiplication of only integers are supported");
                             System.out.println("Exiting..");
                             System.exit(0);
-                        }else if(operand1.getValue() == 0){
+                        }else if((int)operand1.getValue() == 0){
                             System.err.println("Error: Division by zero");
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        aFrame.operandStack.push(new Symbol(0, operand2.getValue() / operand1.getValue()));
+                        aFrame.operandStack.push(new Symbol(0, (int)operand2.getValue() / (int)operand1.getValue()));
 
                         break;
                     }
@@ -235,7 +236,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        if(operand1.getValue() > operand2.getValue()){
+                        if((int)operand1.getValue() > (int)operand2.getValue()){
                             aFrame.operandStack.push(new Symbol(1, 1));
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
@@ -256,7 +257,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        if(operand1.getValue() >= operand2.getValue()){
+                        if((int)operand1.getValue() >= (int)operand2.getValue()){
                             aFrame.operandStack.push(new Symbol(1, 1));
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
@@ -278,7 +279,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        if(operand1.getValue() < operand2.getValue()){
+                        if((int)operand1.getValue() < (int)operand2.getValue()){
                             aFrame.operandStack.push(new Symbol(1, 1));
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
@@ -300,7 +301,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        if(operand1.getValue() <= operand2.getValue()){
+                        if((int)operand1.getValue() <= (int)operand2.getValue()){
                             aFrame.operandStack.push(new Symbol(1, 1));
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
@@ -322,7 +323,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        if(operand1.getValue() == 1 || operand2.getValue() == 1){
+                        if((int)operand1.getValue() == 1 || (int)operand2.getValue() == 1){
                             aFrame.operandStack.push(new Symbol(1, 1));
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
@@ -344,7 +345,7 @@ public class GPSCPU {
                             System.out.println("Exiting..");
                             System.exit(0);
                         }
-                        if(operand1.getValue() == 1 && operand2.getValue() == 1){
+                        if((int)operand1.getValue() == 1 && (int)operand2.getValue() == 1){
                             aFrame.operandStack.push(new Symbol(1, 1));
                         }else{
                             aFrame.operandStack.push(new Symbol(1, 0));
@@ -369,7 +370,7 @@ public class GPSCPU {
                         Symbol ifExpressionResult = aFrame.operandStack.pop();
 
                         if(ifExpressionResult.getType()==1){
-                            if(ifExpressionResult.getValue() == 0){
+                            if((int)ifExpressionResult.getValue() == 0){
                                 if(aFrame.blockStack.peek().endIndex <= aFrame.blockStack.peek().startIndex){
                                     String ifBlockStatement = code.get(++ip);
                                     String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
@@ -564,7 +565,7 @@ public class GPSCPU {
                         }else if(isVariableDefined(printVariable)){
                             Symbol variable = getVariable(printVariable);
                             if(variable.getType() == 1){
-                                if(variable.getValue() == 0){
+                                if((int)variable.getValue() == 0){
                                     System.out.println("false");
                                 }else{
                                     System.out.println("true");
@@ -624,7 +625,7 @@ public class GPSCPU {
                         Symbol ifExpressionResult = aFrame.operandStack.peek();
                         if(ifExpressionResult.getType()==1){
                             aFrame.blockStack.push(new Block());
-                            if(ifExpressionResult.getValue() == 0){
+                            if((int)ifExpressionResult.getValue() == 0){
                                 String ifBlockStatement = code.get(++ip);
                                 String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
                                 while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_BLOCK_END.toString()))){
@@ -661,7 +662,7 @@ public class GPSCPU {
                         Symbol ifExpressionResult = aFrame.operandStack.peek();
                         if(ifExpressionResult.getType()==1){
                             aFrame.blockStack.push(new Block());
-                            if(ifExpressionResult.getValue() == 1){
+                            if((int)ifExpressionResult.getValue() == 1){
                                 String ifBlockStatement = code.get(++ip);
                                 String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
                                 while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.ELSE_BLOCK_END.toString()))){
@@ -696,6 +697,104 @@ public class GPSCPU {
                         System.err.println("Illegal opocode: "+ tokens[0]);
                         System.out.println("Exiting...");
                         System.exit(0);
+                        break;
+                    }
+
+                    case STACK: {
+                        // declaring the stack and inserting it into symbol table
+                        // System.out.println(opcode.name());
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        Stack<Integer> st = new Stack<>();
+                        Symbol sym = new Symbol(2, st);
+                        Block currBlock = aFrame.blockStack.peek();
+                        currBlock.symbolTable.put(tokens[1], sym);
+                        break;
+                    }
+
+                    case PUSH:{
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        String variableName = tokens[1];
+                        String val = tokens[2];
+                        if(isInt(val)){
+                            int value = Integer.parseInt(val);
+                            if(isVariableDefined(variableName)){
+                                Symbol lhs = getVariable(variableName);
+                                if(lhs.getType() != 2){
+                                    System.err.println("Error: Incompatible Stack Operation /nExiting...");
+                                    System.exit(0);
+                                }else{
+                                    //System.out.println("Assigning value "+variableName+": "+rhs.getValue());
+                                    Stack st = (Stack) lhs.getValue();
+                                    st.push(value);
+                                }
+                            }else{
+                                System.err.println("Error: Variable " + variableName + " not found");
+                                System.out.println("Exiting...");
+                                System.exit(0);
+                            }
+                        }else{
+                            System.err.println("Error: Invalid value being pushed to stack ");
+                            System.out.println("Exiting...");
+                            System.exit(0);
+                        }
+                        break;
+                    }
+
+                    case POP:{
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        String variableName = tokens[1];
+                        Symbol lhs = getVariable(variableName);
+                        try{
+                            Stack st = (Stack) lhs.getValue();
+                            if(st.size() == 0){
+                                System.err.println("Error: Incompatible Stack Operation on empty Stack/nExiting...");
+                                System.exit(0);
+                            }else{
+                                int temp = (int) st.pop();
+                                aFrame.operandStack.push(new Symbol(0, temp));
+                            }
+                        }catch (Exception e){
+                            System.err.println("Error: Incompatible Stack Operation");
+                            e.printStackTrace();
+                            System.exit(0);
+                        }
+                        break;
+                    }
+
+                    case PEEK:{
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        String variableName = tokens[1];
+                        Symbol lhs = getVariable(variableName);
+                        try{
+                            Stack st = (Stack) lhs.getValue();
+                            if(st.size() == 0){
+                                System.err.println("Error: Incompatible Stack Operation on empty Stack/nExiting...");
+                                System.exit(0);
+                            }else{
+                                int temp = (int) st.peek();
+                                aFrame.operandStack.push(new Symbol(0, temp));
+                            }
+                        }catch (Exception e){
+                            System.err.println("Error: Incompatible Stack Operation");
+                            e.printStackTrace();
+                            System.exit(0);
+                        }
+                        break;
+                    }
+
+                    case SIZE:{
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        String variableName = tokens[1];
+                        Symbol lhs = getVariable(variableName);
+                        try{
+                            Stack st = (Stack) lhs.getValue();
+                            int temp = st.size();
+                            aFrame.operandStack.push(new Symbol(0, temp));
+                        }catch (Exception e){
+                            System.err.println("Error: Incompatible Stack Operation");
+                            e.printStackTrace();
+                            System.exit(0);
+                        }
                         break;
                     }
                 }
@@ -839,5 +938,14 @@ public class GPSCPU {
         for(int i=stack.size()-1; i>=0; i--){
             System.out.print(stack.elementAt(i).getValue() + " ");
         }
+    }
+
+    public static boolean isInt(String s)
+    {
+        try
+        { int i = Integer.parseInt(s); return true; }
+
+        catch(NumberFormatException er)
+        { return false; }
     }
 }

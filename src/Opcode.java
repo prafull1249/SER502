@@ -35,5 +35,10 @@ public enum Opcode {
     BPARAM,
     OR,
     AND,
+    STACK,
+    PUSH,
+    POP,
+    PEEK,
+    SIZE,
     ILLEGAL;
 }
