@@ -605,7 +605,13 @@ public class GPSCPU {
                         ActivationFrame aFrame = activationFrameStack.peek();
                         Symbol sym = new Symbol(1);
                         Block currBlock = aFrame.blockStack.peek();
-                        currBlock.symbolTable.put(tokens[1], sym);
+
+                        if (currBlock.symbolTable.containsKey(tokens[1])){
+                            System.err.println("Variable "+tokens[1]+" already defined in scope. \nExiting...");
+                            System.exit(0);
+                        }else{
+                            currBlock.symbolTable.put(tokens[1], sym);
+                        }
 
                         break;
                     }
@@ -950,8 +956,16 @@ public class GPSCPU {
         if(isNumeric(operandString)){
             operand.setType(0);
             operand.setValue(Integer.parseInt(operandString));
+        }else if(isBoolean(operandString)){
+            operand.setType(1);
+            operand.setValue(Boolean.parseBoolean(operandString));
         }else{
-            operand = getVariable(operandString);
+            if(isVariableDefined(operandString)){
+                operand = getVariable(operandString);
+            }else{
+                System.err.println("Error: variable "+operandString+" not defined. \nExiting...");
+                System.exit(0);
+            }
         }
         return operand;
     }
