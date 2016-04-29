@@ -78,6 +78,10 @@ public class visitMain extends GrammarBaseVisitor<String>{
                     mapFunc.get(mapFunc.getKey(mapFunc.size() - 1)).getLocalMap().put(anId, FunctionClass.typeData.BOOL);
                     writeToFile("bdec " + anId);
                 }
+                if (ctx.getChild(0).getText().equals("stack")) {
+                     mapFunc.get(mapFunc.getKey(mapFunc.size() - 1)).getLocalMap().put(anId, FunctionClass.typeData.STACK);
+                    writeToFile("stack " + anId);
+                }
             }
             return null;
         }catch (IOException e) {
@@ -260,7 +264,7 @@ public class visitMain extends GrammarBaseVisitor<String>{
             System.out.println(ctx.getChild(0).getText()    );
             for(int i = 0; i< ctx.getChildCount() ;i++){
                 String child = ctx.getChild(i).getText();
-                if(child.equals("*") || child.equals("/")){
+                if(child.equals("*") || child.equals("/") || child.equals("%")){
                     operStack.push(child);
                 }
                 else if(ctx.getChild(i).getChildCount()>1){
@@ -274,13 +278,23 @@ public class visitMain extends GrammarBaseVisitor<String>{
                     try {
                         String temp = OpStack.pop();
                         if(temp != null )
-                            writeToFile("store "+temp);
+                            if(isNumeric(temp))
+                                writeToFile("istore "+temp);
+                            else
+                                writeToFile("store "+ temp);
                         temp = OpStack.pop();
-                        if(temp != null )
-                            writeToFile("store "+temp);
+                        if(temp != null){
+                            if(isNumeric(temp))
+                                writeToFile("istore "+temp);
+                            else
+                                writeToFile("store "+ temp);
+                        }
                         if(!operStack.isEmpty()){
-                            if(operStack.pop().equals("*"))
+                            String p = operStack.pop();
+                            if(p.equals("*"))
                                 writeToFile("mul");
+                            else if(p.equals("%"))
+                                writeToFile("mod");
                             else
                                 writeToFile("divide");
                             OpStack.push(null);
@@ -494,6 +508,9 @@ public class visitMain extends GrammarBaseVisitor<String>{
                 } else if (ctx.getChild(0).getText().equals("bool")) {
                     mapFunc.get(mapFunc.getKey(mapFunc.size()-1)).getLocalMap().put(anId, FunctionClass.typeData.BOOL);
                     writeToFile("bdec " + anId);
+                }else if (ctx.getChild(0).getText().equals("stack")) {
+                     mapFunc.get(mapFunc.getKey(mapFunc.size() - 1)).getLocalMap().put(anId, FunctionClass.typeData.STACK);
+                    writeToFile("stack " + anId);
                 }
             }
         }
