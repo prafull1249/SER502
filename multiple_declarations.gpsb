@@ -1,0 +1,12 @@
+FUNC_START main
+TRETURN VOID
+
+IDEC n
+ISTORE 5
+ASSIGN n
+print n
+
+idec n
+print n
+
+FUNC_END

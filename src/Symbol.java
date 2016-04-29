@@ -32,10 +32,11 @@ public class Symbol {
 
     Symbol(int type){
         this.type = type;
+        this.value = 0;
     }
 
     Symbol(){
         type = -1;
-//        value = 0;
+        value = 0;
     }
 }

@@ -1,33 +1,30 @@
-FUNC_START main
-TRETURN VOID
-IDEC x
-ISTORE 5
-CALL fact 1
-ASSIGN x
-PRINT x
-FUNC_END
-
-
-FUNC_START fact
-TRETURN INT
-IPARAM n
-LTE n 1
-IF_START
-IF_BLOCK_START
-RETURN 1
-IF_BLOCK_END
-ELSE_BLOCK_START
-IDEC prod
-STORE n
-ISTORE 1
-SUB
-CALL fact 1
-ASSIGN prod
-STORE n
-STORE prod
-MUL
-ASSIGN prod
-RETURN prod
-ELSE_BLOCK_END
-IF_END
-FUNC_END
+func_start fact
+treturn int
+iparam n
+idec prod
+lte n 1
+if_start
+if_block_start
+return 1
+if_block_end
+if_end
+store n
+istore 1
+sub
+assign prod
+store prod
+call fact 1
+assign prod
+store prod
+store n
+mul
+assign prod
+return prod
+func_end
+func_start main
+treturn void
+idec prod
+istore 5
+call fact 1
+assign prod
+func_end

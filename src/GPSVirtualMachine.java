@@ -12,8 +12,11 @@ public class GPSVirtualMachine {
     public static void main(String[] args) {
         try {
             //String bytecodeFile = "FactorialIterative.gpsb";
-            //String bytecodeFile = "FactorialRecursive.gspb";
-            String bytecodeFile = "StackDemo.gpsb";
+            String bytecodeFile = "FactorialRecursive.gspb";
+            //String bytecodeFile = "StackDemo.gpsb";
+            //String bytecodeFile = args[0];
+            //String bytecodeFile = "NestedIfElse.gpsb";
+            //String bytecodeFile = "multiple_declarations.gpsb";
             if(new File(bytecodeFile).isFile()) {
                 System.out.println("Bytecode file found...");
             }
@@ -47,10 +50,10 @@ public class GPSVirtualMachine {
 
             while ((line = br.readLine()) != null) {
                 if(!(line.isEmpty() || line.trim().equals("") || line.trim().equals("\n"))){
-                    if (line.startsWith(Opcode.FUNC_START.toString())){
+                    String[] tokens = line.split(" ");
+                    if (tokens[0].equalsIgnoreCase(Opcode.FUNC_START.toString())){
                         //System.out.println("got a new func");
 
-                        String[] tokens = line.split(" ");
                         String name = tokens[1];
 
                         LinesOfCode functionCode = new LinesOfCode();
@@ -60,7 +63,8 @@ public class GPSVirtualMachine {
                         boolean addToFunction = true;
                         while(addToFunction){
                             line = br.readLine();
-                            if(line.startsWith(Opcode.FUNC_END.toString())){
+                            tokens = line.split(" ");
+                            if(tokens[0].equalsIgnoreCase(Opcode.FUNC_END.toString())){
                                 addToFunction = false;
                                 //System.out.println("Adding new line: " + line);
                                 functionCode.code.add(line);
