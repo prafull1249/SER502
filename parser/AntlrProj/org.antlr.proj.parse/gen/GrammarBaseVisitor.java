@@ -1,4 +1,4 @@
-// Generated from C:/Users/Prafull/IdeaProjects/AntlrProj/org.antlr.proj.parse/src\Grammar.g4 by ANTLR 4.5.1
+// Generated from C:/Users/Prafull/work/SER502/parser/AntlrProj/org.antlr.proj.parse/src\Grammar.g4 by ANTLR 4.5.1
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -114,6 +114,13 @@ public class GrammarBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitGlobalStatement(GrammarParser.GlobalStatementContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitSimpleStatement(GrammarParser.SimpleStatementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -171,6 +178,20 @@ public class GrammarBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitProcedureCallStatement(GrammarParser.ProcedureCallStatementContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitPrintStatement(GrammarParser.PrintStatementContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitStackStatement(GrammarParser.StackStatementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

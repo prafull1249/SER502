@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Stack;
 
 
@@ -56,9 +58,48 @@ public class visitMain extends GrammarBaseVisitor<String>{
     }
 
     @Override
+    public String visitGlobalStatement(GrammarParser.GlobalStatementContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public String visitTypeDeclaration(GrammarParser.TypeDeclarationContext ctx) {
+        try {
+            String[] id = ctx.getChild(1).getText().split(",");
+            for (String anId : id) {
+                if (mapFunc.get(mapFunc.getKey(mapFunc.size() - 1)).getParamMap().containsKey(anId) ||
+                        mapFunc.get(mapFunc.getKey(mapFunc.size() - 1)).getLocalMap().containsKey(anId)) {
+                    throw new Exception("Variable" + anId + " already defined..!");
+                }
+                if (ctx.getChild(0).getText().equals("int")) {
+                    mapFunc.get(mapFunc.getKey(mapFunc.size() - 1)).getLocalMap().put(anId, FunctionClass.typeData.INT);
+                    writeToFile("idec " + anId);
+                } else if (ctx.getChild(0).getText().equals("bool")) {
+                    mapFunc.get(mapFunc.getKey(mapFunc.size() - 1)).getLocalMap().put(anId, FunctionClass.typeData.BOOL);
+                    writeToFile("bdec " + anId);
+                }
+            }
+            return null;
+        }catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+        @Override
     public String visitProgramBody(GrammarParser.ProgramBodyContext ctx) {
         try {
+            /*
+            for(int i = 0 ; i< ctx.getChildCount();i++){
+                visitSubprogramBody((GrammarParser.SubprogramBodyContext) ctx.getChild(i));
+            }
+            */
+
             visitChildren(ctx);
+            System.out.println("The total functions are " + ctx.getChildCount());
+            System.out.println("Functions " + ctx.getChildCount());
             if(!isMainDefined)
                     throw new Exception("Main function not defined.!");
         } catch (Exception e) {
@@ -72,19 +113,22 @@ public class visitMain extends GrammarBaseVisitor<String>{
     public String visitSubprogramBody(GrammarParser.SubprogramBodyContext ctx){
 
         try {
-            if (ctx.getChild(1).getText().equals("{") && ctx.getChild(ctx.getChildCount() - 1).getText().equals("}")) {
-                System.out.println("we are good");
-            }
-            else{
-                System.out.println("no appropriate blocks for the blcoks.");
-                throw new Exception("no appropriate blocks for the blcoks.");
+
+            for (int i =0;i< ctx.getChildCount();i++) {
+                if (ctx.getChild(i).getText().equals("{"))
+                    if(ctx.getChild(ctx.getChildCount() - 1).getText().equals("}"))
+                        System.out.println("we are good");
+                    else {
+                        System.out.println("no appropriate blocks for the blcoks.");
+                        throw new Exception("no appropriate blocks for the blcoks.");
+                    }
             }
             visitChildren(ctx);
             System.out.println("Subprogram" + ctx.getChildCount());
             if (ctx.getChildCount() == 1) {
                 System.out.println(ctx.getChild(0));
             }
-            writeToFile("end@func");
+            writeToFile("func_end");
         }
         catch(Exception e){
             e.printStackTrace();
@@ -272,14 +316,16 @@ public class visitMain extends GrammarBaseVisitor<String>{
                         if ( !ctx.getChild(i + 1).getText().equals("{")) {
                             throw new Exception("if statement is not appropriate");
                         }
-                        writeToFile("start@"+ctx.getChild(i).getText());
+                        //writeToFile(ctx.getChild(i).getText()+"_start");
+                        writeToFile(ctx.getChild(i).getText()+"_block_start");
                         i = i + 2;
                     }else{
                         if ( !ctx.getChild(i + 2).getText().equals("{")) {
                             throw new Exception("if statement is not appropriate");
                         }
                         visitCondition((GrammarParser.ConditionContext) ctx.getChild(i+1));
-                        writeToFile("start@"+ctx.getChild(i).getText());
+                        writeToFile(ctx.getChild(i).getText()+"_start");
+                        writeToFile(ctx.getChild(i).getText()+"_block_start");
                         i= i + 3;
                     }
                     st.push("{");
@@ -293,12 +339,16 @@ public class visitMain extends GrammarBaseVisitor<String>{
                 }
                 else if(ctx.getChild(i).getText().equals("}")) {
                     st.pop();
-                    writeToFile("end@"+stIf.pop());
+                    String temp = stIf.pop();
+                    writeToFile(temp+"_block_end");
+                    //writeToFile(temp+"_end");
                     i = i + 1;
                 }
             }
             if(!st.isEmpty())
                 throw new Exception("Extra braces in if statement");
+            else
+                writeToFile("if_end");
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -361,7 +411,7 @@ public class visitMain extends GrammarBaseVisitor<String>{
             if(!mapFunc.containsKey(ctx.getChild(1).getText()))
             {
                 String name = ctx.getChild(1).getText();
-                writeToFile("start@func "+ name);
+                writeToFile("func_start "+ name);
                 if(name.equals("main"))
                     isMainDefined = true;
                 mapFunc.put(ctx.getChild(1).getText(), new FunctionClass(ctx.getChild(1).getText()));
@@ -379,6 +429,35 @@ public class visitMain extends GrammarBaseVisitor<String>{
         }
         return super.visitSubprogramSpecification(ctx);
     }
+
+    @Override
+    public String visitStackStatement(GrammarParser.StackStatementContext ctx){
+         try {
+
+             if(ctx.getChild(0).getText().equals("push")){
+                 visitExpression((GrammarParser.ExpressionContext) ctx.getChild(4));
+                 writeToFile("push "+ctx.getChild(2).getText());
+             }else  if(ctx.getChild(0).getText().equals("pop")){
+                 //visitExpression((GrammarParser.ExpressionContext) ctx.getChild(2));
+                 writeToFile("pop "+ctx.getChild(2).getText());
+             }else  if(ctx.getChild(0).getText().equals("peek")){
+                 //visitExpression((GrammarParser.ExpressionContext) ctx.getChild(2));
+                 writeToFile("peek "+ctx.getChild(2).getText());
+             }
+             else{
+                 throw new Exception("error in stackstatement");
+             }
+             System.out.println("push  "+ ctx.getChild(ctx.getChildCount()-2).getText() +" " + ctx.getChildCount());
+        } catch (IOException e) {
+            e.printStackTrace();
+             return null;
+        } catch (Exception e) {
+             e.printStackTrace();
+             return null;
+         }
+        return null;
+    }
+
 
     @Override
     public String visitFormalPart(GrammarParser.FormalPartContext ctx) {
@@ -406,7 +485,8 @@ public class visitMain extends GrammarBaseVisitor<String>{
                 if(mapFunc.get(mapFunc.getKey(mapFunc.size()-1)).getParamMap().containsKey(anId) ||
                         mapFunc.get(mapFunc.getKey(mapFunc.size()-1)).getLocalMap().containsKey(anId) )
                 {
-                    throw new Exception("Variable" + anId + " already defined..!");
+                    //dynamic scoping
+                    //throw new Exception("Variable" + anId + " already defined..!");
                 }
                 if (ctx.getChild(0).getText().equals("int")) {
                     mapFunc.get(mapFunc.getKey(mapFunc.size()-1)).getLocalMap().put(anId, FunctionClass.typeData.INT);
@@ -469,9 +549,23 @@ public class visitMain extends GrammarBaseVisitor<String>{
                 //visitActualParameterPart((GrammarParser.ActualParameterPartContext) ctx.getChild(1));
                 String temp = ctx.getChild(1).getText();
                 String[] params = temp.substring(1,temp.length()-1).split(",");
-                if(params.length!=mapFunc.get(ctx.getChild(0).getText()).getParamMap().size()) {
-                    System.out.println("The mapfunc has "+mapFunc.get(ctx.getChild(0).getText()).getParamMap().toString());
-                    System.out.println("params.length = "+ params.length);
+                System.out.println("params = "+ Arrays.deepToString(params));
+                int paramLen = 0;
+                for(int i=0;i< params.length;i++){
+                    if(params[i].length()!=0)
+                        paramLen += 1;
+                    if(params[i].equals("void"))
+                        paramLen = paramLen-1;
+                }
+                int actualParamLen = mapFunc.get(ctx.getChild(0).getText()).getParamMap().size();
+                HashMap<String,FunctionClass.typeData> paramMap =mapFunc.get(ctx.getChild(0).getText()).getParamMap();
+                for(String s: paramMap.keySet()){
+                    if(paramMap.get(s) == FunctionClass.typeData.VOID)
+                        actualParamLen = actualParamLen -1;
+                }
+                if(paramLen!=actualParamLen) {
+                    System.out.println("The mapfunc has "+actualParamLen);
+                    System.out.println("params.length = "+ paramLen);
                     throw new Exception("Number of parameters of Function prototype and function call do not match.!");
                 }
                 visitActualParameterPart((GrammarParser.ActualParameterPartContext) ctx.getChild(1));
@@ -496,9 +590,9 @@ public class visitMain extends GrammarBaseVisitor<String>{
                 throw new Exception("Check braces in While loop with condition "+ctx.getChild(0).getText());
             }
             visitIterationScheme((GrammarParser.IterationSchemeContext) ctx.getChild(0));
-            writeToFile("start@loop");
+            writeToFile("loop_start");
             visitSequenceOfStatements((GrammarParser.SequenceOfStatementsContext) ctx.getChild(2));
-            writeToFile("end@loop");
+            writeToFile("loop_end");
         }
         catch(Exception e){
             e.printStackTrace();
@@ -513,9 +607,9 @@ public class visitMain extends GrammarBaseVisitor<String>{
             if(ctx.getChild(0).getText().equals("{"))
                 if(ctx.getChild(ctx.getChildCount()-1).getText().equals("}"))
                 {
-                    writeToFile("start@block");
+                    writeToFile("block_start");
                     visitChildren(ctx);
-                    writeToFile("end@block");
+                    writeToFile("block_end");
                 }
                 else
                     throw new Exception("check Braces in the function " + mapFunc.getKey(mapFunc.size()-1));

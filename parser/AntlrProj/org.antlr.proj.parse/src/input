@@ -1,17 +1,9 @@
 func fact(int n:int){
         int prod
-        if(n<=0){
-			return 1
-		    }
 		prod = 1
-		while(n>=1){
-			prod = prod * n
-			n=n-1
-		}
 		return prod
 	}
 
 	func main(:void){
-		arr[10] int n
 		int prod = fact(100)
 	}

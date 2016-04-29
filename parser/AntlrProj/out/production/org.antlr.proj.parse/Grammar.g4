@@ -2,7 +2,7 @@ grammar Grammar;
 
 programBody : subprogramBody (subprogramBody)* ;
 
-subprogramBody : subprogramSpecification '{' declarativePart sequenceOfStatements '}' ;
+subprogramBody : (globalStatement (globalStatement)*)? subprogramSpecification '{' declarativePart sequenceOfStatements '}' ;
 
 declarativePart : ( basicDeclaration )* ;
 
@@ -32,17 +32,22 @@ arrayTypeDefinition : 'arr' '[' index ']' <type>name ;
 
 sequenceOfStatements : statement ( statement )*;
 
-
-statement : simpleStatement 
+statement : simpleStatement
 		  | compoundStatement
+		  | stackStatement
 		  | objectDeclaration
           | typeDeclaration
           | '{' statement (statement)*'}'
           ;
 
+globalStatement : assignmentStatement
+                | typeDeclaration
+                ;
+
 simpleStatement : assignmentStatement
 				| procedureCallStatement 
 				| returnStatement
+				| printStatement
 				;
 
 returnStatement : 'return' expression ;
@@ -64,6 +69,13 @@ assignmentStatement : <variable>name '=' expression
                     ;
 
 procedureCallStatement : <procedure>name actualParameterPart ;
+
+printStatement : 'print' identifierList ;
+
+stackStatement : 'push' '(' Identifier ',' expression ')'
+               |  'pop' '(' Identifier ')'
+               | 'peek' '(' Identifier ')'
+               ;
 
 actualParameterPart : '(' ( expression ( ',' expression )* )* ')' ;
 
@@ -93,6 +105,7 @@ unaryAddingOperator : '+'
 
 multiplyingOperator : '*' 
 					| '/'
+					| '%'
 					;
 
 binaryAddingOperator : '+' 
@@ -105,6 +118,7 @@ relationalOperator : '='
 				   | '<=' 
 				   | '>' 
 				   | '>='
+				   | '=='
 				   ;
 Identifier : [a-zA-Z][a-zA-Z0-9]* ;             // match lower-case identifiers
 WhiteSpaces : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines

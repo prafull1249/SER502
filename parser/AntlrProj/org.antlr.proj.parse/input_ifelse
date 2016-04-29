@@ -8,5 +8,6 @@ func fact(int n, int ib:int){
             c = a- c
         }
 
+
 }
 

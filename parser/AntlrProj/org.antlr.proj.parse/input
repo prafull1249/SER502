@@ -1,17 +1,21 @@
-func fact(int n:int){
-        int prod
-        if(n<=0){
-			return 1
-			 }
-		prod = 1
-		while(n>=1){
-			prod = prod * n
-			n=n-1
-		}
-		return prod
-	}
+int n
+n= 0
+func testIf(int n:void)
+{
+    int temp
+    temp = -1
+    if(n>=1){
+        print n
+    }
+    else{
+        print temp
+    }
+    return temp
+}
 
-	func main(:void){
-		arr[10] int n
-		int prod = fact(100)
-	}
+int s
+s = 0
+func main(:void){
+    int prod
+    testIf(9)
+}

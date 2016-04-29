@@ -1,4 +1,4 @@
-// Generated from C:/Users/Prafull/IdeaProjects/AntlrProj/org.antlr.proj.parse/src\Grammar.g4 by ANTLR 4.5.1
+// Generated from C:/Users/Prafull/work/SER502/parser/AntlrProj/org.antlr.proj.parse/src\Grammar.g4 by ANTLR 4.5.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -147,6 +147,16 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitStatement(GrammarParser.StatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GrammarParser#globalStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterGlobalStatement(GrammarParser.GlobalStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#globalStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitGlobalStatement(GrammarParser.GlobalStatementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GrammarParser#simpleStatement}.
 	 * @param ctx the parse tree
 	 */
@@ -236,6 +246,26 @@ public interface GrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitProcedureCallStatement(GrammarParser.ProcedureCallStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#printStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrintStatement(GrammarParser.PrintStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#printStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrintStatement(GrammarParser.PrintStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#stackStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStackStatement(GrammarParser.StackStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#stackStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStackStatement(GrammarParser.StackStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GrammarParser#actualParameterPart}.
 	 * @param ctx the parse tree
