@@ -1,6 +1,7 @@
 func_start checkScope
 treturn void
 idec x
+
 lt x 10
 loop_start
 idec x

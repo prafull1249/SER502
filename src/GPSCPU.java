@@ -120,7 +120,7 @@ public class GPSCPU {
                             Symbol lhs = getVariable(variableName);
                             Symbol rhs = aFrame.operandStack.pop();
                             if(lhs.getType() != rhs.getType()){
-                                System.err.println("Error: Incompatible type /nExiting...");
+                                System.err.println("Error: Incompatible type \nExiting...");
                                 System.exit(0);
                             }else{
                                 //System.out.println("Assigning value "+variableName+": "+rhs.getValue());
@@ -396,6 +396,7 @@ public class GPSCPU {
                     case LOOP_END:{
                         // System.out.println(opcode.name());
                         ActivationFrame aFrame = activationFrameStack.peek();
+                        aFrame.blockStack.peek().symbolTable.clear();
                         if(aFrame.blockStack.peek().endIndex <= aFrame.blockStack.peek().startIndex) {
                             aFrame.blockStack.peek().endIndex = ip-1;
                         }
@@ -463,7 +464,7 @@ public class GPSCPU {
                             Symbol parameterPassed = aFrame.operandStack.pop();
 
                             if(parameterPassed.getType() != 0){
-                                System.err.println("Error: Type of parameter passed and defined does not match./nExiting");
+                                System.err.println("Error: Type of parameter passed and defined does not match.\nExiting");
                                 System.exit(0);
                             }
                             currentBlock.symbolTable.put(parameterName, parameterPassed);
@@ -482,7 +483,7 @@ public class GPSCPU {
                             Block currentBlock = aFrame.blockStack.peek();
                             Symbol parameterPassed = aFrame.operandStack.pop();
                             if(parameterPassed.getType() != 1){
-                                System.err.println("Error: Type of parameter passed and defined does not match./nExiting");
+                                System.err.println("Error: Type of parameter passed and defined does not match.\nExiting");
                                 System.exit(0);
                             }
                             currentBlock.symbolTable.put(parameterName, parameterPassed);
@@ -500,7 +501,7 @@ public class GPSCPU {
                         String currentFunctionName = aFrame.functionName;
 
                         if(returnValue.getType() != bytecode.getFunctions().get(currentFunctionName).getReturnType()){
-                            System.err.println("Error: Return type doesn't match with the definition./nExiting...");
+                            System.err.println("Error: Return type doesn't match with the definition.\nExiting...");
                             System.exit(0);
                         }
 
@@ -748,7 +749,7 @@ public class GPSCPU {
                             if(isVariableDefined(variableName)){
                                 Symbol lhs = getVariable(variableName);
                                 if(lhs.getType() != 2){
-                                    System.err.println("Error: Incompatible Stack Operation /nExiting...");
+                                    System.err.println("Error: Incompatible Stack Operation \nExiting...");
                                     System.exit(0);
                                 }else{
                                     //System.out.println("Assigning value "+variableName+": "+rhs.getValue());
@@ -775,7 +776,7 @@ public class GPSCPU {
                         try{
                             Stack st = (Stack) lhs.getValue();
                             if(st.size() == 0){
-                                System.err.println("Error: Incompatible Stack Operation on empty Stack/nExiting...");
+                                System.err.println("Error: Incompatible Stack Operation on empty Stack\nExiting...");
                                 System.exit(0);
                             }else{
                                 int temp = (int) st.pop();
@@ -796,7 +797,7 @@ public class GPSCPU {
                         try{
                             Stack st = (Stack) lhs.getValue();
                             if(st.size() == 0){
-                                System.err.println("Error: Incompatible Stack Operation on empty Stack/nExiting...");
+                                System.err.println("Error: Incompatible Stack Operation on empty Stack\nExiting...");
                                 System.exit(0);
                             }else{
                                 int temp = (int) st.peek();

@@ -1,5 +1,7 @@
 func_start checkStack
 treturn void
+stack s
+stack p
 istore 2
 push s
 istore 3
