@@ -5,7 +5,8 @@ idec prod
 istore 1
 assign prod
 istore 1
-push s
+stack s
+push s 5
 pop s
 lte n 0
 if_start
@@ -31,5 +32,9 @@ func_end
 
 func_start main
 treturn void
+istore 5
+call fact 1
 idec prod
+assign prod
+print prod
 func_end

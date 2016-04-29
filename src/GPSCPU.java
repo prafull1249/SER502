@@ -555,27 +555,31 @@ public class GPSCPU {
                         break;
                     }
 
-                    case PRINT:
+                    case PRINT: {
                         //System.out.println(opcode.name());
                         // Need to check if any text will be present in the print statement. otherwise below code works fine
 
                         String printVariable = tokens[1];
-                        if(isBoolean(printVariable) || isNumeric(printVariable)){
+                        if (isBoolean(printVariable) || isNumeric(printVariable)) {
                             System.out.println(printVariable);
-                        }else if(isVariableDefined(printVariable)){
+                        } else if (isVariableDefined(printVariable)) {
                             Symbol variable = getVariable(printVariable);
-                            if(variable.getType() == 1){
-                                if((int)variable.getValue() == 0){
+                            if (variable.getType() == 1) {
+                                if ((int) variable.getValue() == 0) {
                                     System.out.println("false");
-                                }else{
+                                } else {
                                     System.out.println("true");
                                 }
-                            }else{
+                            } else {
                                 System.out.println(variable.getValue());
                             }
+                        }else{
+                            System.err.println("Error: Variable "+printVariable+" not defined.\nExiting...");
+                            System.exit(0);
                         }
 
                         break;
+                    }
 
                     case IDEC: {
                         // System.out.println(opcode.name());
@@ -628,14 +632,20 @@ public class GPSCPU {
                             if((int)ifExpressionResult.getValue() == 0){
                                 String ifBlockStatement = code.get(++ip);
                                 String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
-                                while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_BLOCK_END.toString()))){
+                                int count = 0;
+                                while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_BLOCK_END.toString())) || count != 0){
                                     ifBlockStatement = code.get(++ip);
                                     ifBlockStatementTokens = ifBlockStatement.split(" ");
+
+                                    if(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_START.toString())){
+                                        count++;
+                                    }
+
+                                    if(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_END.toString())){
+                                        count--;
+                                    }
                                 }
-                            }/*
-                            else{
-                                aFrame.blockStack.push(new Block());
-                            }*/
+                            }
                         }else{
                             System.err.println("Error: The if-condition expression cannot be evaluated to a boolean value");
                             System.out.println("Exiting...");
@@ -665,15 +675,20 @@ public class GPSCPU {
                             if((int)ifExpressionResult.getValue() == 1){
                                 String ifBlockStatement = code.get(++ip);
                                 String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
-                                while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.ELSE_BLOCK_END.toString()))){
+                                int count = 0;
+                                while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.ELSE_BLOCK_END.toString())) || count != 0){
                                     ifBlockStatement = code.get(++ip);
                                     ifBlockStatementTokens = ifBlockStatement.split(" ");
+
+                                    if(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_START.toString())){
+                                        count++;
+                                    }
+
+                                    if(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_END.toString())){
+                                        count--;
+                                    }
                                 }
-                            }/*else
-                            {
-                                aFrame.blockStack.push(new Block());
                             }
-                            */
                         }else{
                             System.err.println("Error: The if expression cannot be evaluated to a boolean value");
                             System.out.println("Exiting...");

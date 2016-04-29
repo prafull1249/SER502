@@ -7,7 +7,6 @@ func fact(int n, int ib:int){
             b = a + c
             c = a- c
         }
-
-
 }
+
 
