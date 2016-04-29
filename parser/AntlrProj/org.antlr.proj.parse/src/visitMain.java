@@ -569,7 +569,7 @@ public class visitMain extends GrammarBaseVisitor<String>{
                     throw new Exception("Number of parameters of Function prototype and function call do not match.!");
                 }
                 visitActualParameterPart((GrammarParser.ActualParameterPartContext) ctx.getChild(1));
-                writeToFile("call " + ctx.getChild(0).getText() + " "+ params.length);
+                writeToFile("call " + ctx.getChild(0).getText() + " "+ paramLen);
             }
         }
         catch(IOException e){

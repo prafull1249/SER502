@@ -12,5 +12,5 @@ loop_end
 func_end
 func_start main
 treturn void
-call checkScope 1
+call checkScope 0
 func_end
