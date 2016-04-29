@@ -151,6 +151,22 @@ public class GPSCPU {
                         break;
                     }
 
+                    case MOD: {
+                        // System.out.println(opcode.name());
+
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        Symbol operand1 = aFrame.operandStack.pop();
+                        Symbol operand2 = aFrame.operandStack.pop();
+                        if (operand1.getType() != 0 || operand2.getType() != 0) {
+                            System.err.println("Error: Modulus of only integers are supported");
+                            System.out.println("Exiting..");
+                            System.exit(0);
+                        }
+                        aFrame.operandStack.push(new Symbol(0, (int)operand2.getValue() % (int)operand1.getValue()));
+
+                        break;
+                    }
+
                     case SUB: {
                         // System.out.println(opcode.name());
 

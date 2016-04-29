@@ -10,6 +10,7 @@ public enum Opcode {
     SUB,
     MUL,
     DIV,
+    MOD,
     EQ,
     GT,
     GTE,
