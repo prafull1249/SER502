@@ -17,7 +17,7 @@ public class GPSVirtualMachine {
             //String bytecodeFile = args[0];
             //String bytecodeFile = "NestedIfElse.gpsb";
             //String bytecodeFile = "multiple_declarations.gpsb";
-            String bytecodeFile = "./parser/AntlrProj/org.antlr.proj.parse/CheckStack_bytecode.gpsb";
+            String bytecodeFile = "./parser/AntlrProj/org.antlr.proj.parse/bytecode_sumfirstOddNo.gpsb";
             if(new File(bytecodeFile).isFile()) {
                 System.out.println("Bytecode file found...");
             }

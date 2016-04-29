@@ -2,23 +2,19 @@ func_start checkStack
 treturn void
 stack s
 stack p
+idec n
+idec t
+istore 1
+push s
 istore 2
 push s
-istore 3
-push s
-istore 4
-push s
 pop s
-istore 299
-push p
-istore 300
-push p
-pop p
-istore 39
-push s
-pop s
+assign n
+print n
+peek s
+assign n
+print n
 func_end
-
 func_start main
 treturn void
 call checkStack 0

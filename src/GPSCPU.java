@@ -660,10 +660,14 @@ public class GPSCPU {
                         if(ifExpressionResult.getType()==1){
                             aFrame.blockStack.push(new Block());
                             if((int)ifExpressionResult.getValue() == 0){
-                                String ifBlockStatement = code.get(++ip);
+                                String ifBlockStatement = code.get(ip);
                                 String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
+
                                 int count = 0;
-                                while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_BLOCK_END.toString())) || count != 0){
+                                if(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_START.toString())){
+                                    count++;
+                                }
+                                while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_BLOCK_END.toString()) && count == 0)){
                                     ifBlockStatement = code.get(++ip);
                                     ifBlockStatementTokens = ifBlockStatement.split(" ");
 
@@ -703,10 +707,13 @@ public class GPSCPU {
                         if(ifExpressionResult.getType()==1){
                             aFrame.blockStack.push(new Block());
                             if((int)ifExpressionResult.getValue() == 1){
-                                String ifBlockStatement = code.get(++ip);
+                                String ifBlockStatement = code.get(ip);
                                 String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
                                 int count = 0;
-                                while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.ELSE_BLOCK_END.toString())) || count != 0){
+                                if(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_START.toString())){
+                                    count++;
+                                }
+                                while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.ELSE_BLOCK_END.toString()) && count == 0)){
                                     ifBlockStatement = code.get(++ip);
                                     ifBlockStatementTokens = ifBlockStatement.split(" ");
 
@@ -759,26 +766,23 @@ public class GPSCPU {
                     case PUSH:{
                         ActivationFrame aFrame = activationFrameStack.peek();
                         String variableName = tokens[1];
-                        String val = tokens[2];
-                        if(isInt(val)){
-                            int value = Integer.parseInt(val);
-                            if(isVariableDefined(variableName)){
-                                Symbol lhs = getVariable(variableName);
-                                if(lhs.getType() != 2){
-                                    System.err.println("Error: Incompatible Stack Operation \nExiting...");
-                                    System.exit(0);
-                                }else{
-                                    //System.out.println("Assigning value "+variableName+": "+rhs.getValue());
-                                    Stack st = (Stack) lhs.getValue();
-                                    st.push(value);
-                                }
-                            }else{
-                                System.err.println("Error: Variable " + variableName + " not found");
-                                System.out.println("Exiting...");
+                        Symbol sym = aFrame.operandStack.pop();
+                        if(sym.getType() != 0){
+                            System.err.println("Error: Only Integers are allowed to push in to Stack \nExiting...");
+                            System.exit(0);
+                        }
+                        int value = (int)sym.getValue();
+                        if(isVariableDefined(variableName)){
+                            Symbol lhs = getVariable(variableName);
+                            if(lhs.getType() != 2){
+                                System.err.println("Error: Incompatible Stack Operation \nExiting...");
                                 System.exit(0);
+                            }else{
+                                Stack st = (Stack) lhs.getValue();
+                                st.push(value);
                             }
                         }else{
-                            System.err.println("Error: Invalid value being pushed to stack ");
+                            System.err.println("Error: Variable " + variableName + " not found");
                             System.out.println("Exiting...");
                             System.exit(0);
                         }
@@ -855,6 +859,10 @@ public class GPSCPU {
                 valid = true;
                 break;
             }
+        }
+
+        if(!valid){
+            System.out.println("Error in isValidOpcode for: "+ str);
         }
         return valid;
     }
@@ -991,14 +999,5 @@ public class GPSCPU {
         for(int i=stack.size()-1; i>=0; i--){
             System.out.print(stack.elementAt(i).getValue() + " ");
         }
-    }
-
-    public static boolean isInt(String s)
-    {
-        try
-        { int i = Integer.parseInt(s); return true; }
-
-        catch(NumberFormatException er)
-        { return false; }
     }
 }

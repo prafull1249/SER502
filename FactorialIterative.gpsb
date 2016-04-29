@@ -20,6 +20,7 @@ assign prod
 loop_end
 return ans
 func_end
+
 func_start main
 treturn void
 idec prod
