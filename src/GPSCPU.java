@@ -752,6 +752,7 @@ public class GPSCPU {
                             int temp = (int) st.pop();
                             aFrame.operandStack.push(new Symbol(0, temp));
                         }
+                        break;
                     }
 
                     case PEEK:{
@@ -766,6 +767,7 @@ public class GPSCPU {
                             int temp = (int) st.peek();
                             aFrame.operandStack.push(new Symbol(0, temp));
                         }
+                        break;
                     }
                 }
             }
