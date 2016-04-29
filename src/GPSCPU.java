@@ -588,7 +588,14 @@ public class GPSCPU {
                         // creating variable of int type and adding it to the current block
                         Symbol sym = new Symbol(0);
                         Block currBlock = aFrame.blockStack.peek();
-                        currBlock.symbolTable.put(tokens[1], sym);
+
+                        if (currBlock.symbolTable.containsKey(tokens[1])){
+                            System.err.println("Variable "+tokens[1]+" already defined in scope. \nExiting...");
+                            System.exit(0);
+                        }else{
+                            currBlock.symbolTable.put(tokens[1], sym);
+                        }
+
 
                         break;
                     }

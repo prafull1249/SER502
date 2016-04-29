@@ -16,6 +16,7 @@ istore 39
 push s
 pop s
 func_end
+
 func_start main
 treturn void
 call checkStack 2
