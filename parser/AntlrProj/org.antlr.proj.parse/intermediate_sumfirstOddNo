@@ -1,0 +1,17 @@
+func sum20odd(int n:int)
+{
+	int num,sum
+	num = 1
+	sum= 0 
+	while(num<=(n*2)){
+		sum = sum + num
+		num = num + 2
+	}
+	return sum
+}
+
+func main(:void){
+	int result 
+	result = sum20odd(20)
+	print result
+}

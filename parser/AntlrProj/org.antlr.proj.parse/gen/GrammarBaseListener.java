@@ -1,4 +1,4 @@
-// Generated from C:/Users/Prafull/IdeaProjects/AntlrProj/org.antlr.proj.parse/src\Grammar.g4 by ANTLR 4.5.1
+// Generated from C:/Users/Prafull/work/SER502/parser/AntlrProj/org.antlr.proj.parse/src\Grammar.g4 by ANTLR 4.5.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -183,6 +183,18 @@ public class GrammarBaseListener implements GrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterGlobalStatement(GrammarParser.GlobalStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGlobalStatement(GrammarParser.GlobalStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSimpleStatement(GrammarParser.SimpleStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -286,6 +298,30 @@ public class GrammarBaseListener implements GrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitProcedureCallStatement(GrammarParser.ProcedureCallStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrintStatement(GrammarParser.PrintStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrintStatement(GrammarParser.PrintStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStackStatement(GrammarParser.StackStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStackStatement(GrammarParser.StackStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

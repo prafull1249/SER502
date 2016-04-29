@@ -1,4 +1,4 @@
-// Generated from C:/Users/Prafull/IdeaProjects/AntlrProj/org.antlr.proj.parse/src\Grammar.g4 by ANTLR 4.5.1
+// Generated from C:/Users/Prafull/work/SER502/parser/AntlrProj/org.antlr.proj.parse/src\Grammar.g4 by ANTLR 4.5.1
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -94,6 +94,12 @@ public interface GrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(GrammarParser.StatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link GrammarParser#globalStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGlobalStatement(GrammarParser.GlobalStatementContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link GrammarParser#simpleStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -147,6 +153,18 @@ public interface GrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitProcedureCallStatement(GrammarParser.ProcedureCallStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GrammarParser#printStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrintStatement(GrammarParser.PrintStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GrammarParser#stackStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStackStatement(GrammarParser.StackStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link GrammarParser#actualParameterPart}.
 	 * @param ctx the parse tree

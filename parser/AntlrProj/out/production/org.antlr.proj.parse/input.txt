@@ -11,3 +11,9 @@ n = n - 1
 }
 return prod
 }
+
+func Main(:void){
+    int prod
+    prod = fact(4)
+
+}

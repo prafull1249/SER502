@@ -1,0 +1,29 @@
+func_start sum20odd
+treturn int
+iparam n
+idec num
+idec sum
+istore 1
+assign num
+istore 0
+assign sum
+lte num (n*2)
+loop_start
+store sum
+store num
+add
+assign sum
+store num
+istore 2
+add
+assign num
+loop_end
+return sum
+func_end
+func_start main
+treturn void
+idec result
+istore 20
+call sum20odd 1
+assign result
+func_end

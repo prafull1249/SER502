@@ -12,11 +12,12 @@ public class GPSVirtualMachine {
     public static void main(String[] args) {
         try {
             //String bytecodeFile = "FactorialIterative.gpsb";
-            String bytecodeFile = "FactorialRecursive.gspb";
+            //String bytecodeFile = "FactorialRecursive.gspb";
             //String bytecodeFile = "StackDemo.gpsb";
             //String bytecodeFile = args[0];
             //String bytecodeFile = "NestedIfElse.gpsb";
             //String bytecodeFile = "multiple_declarations.gpsb";
+            String bytecodeFile = "./parser/AntlrProj/org.antlr.proj.parse/bytecode_checkScope.gpsb";
             if(new File(bytecodeFile).isFile()) {
                 System.out.println("Bytecode file found...");
             }

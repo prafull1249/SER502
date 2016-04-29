@@ -1,0 +1,18 @@
+func checkStack(:void)
+{
+	Stack s
+	Stack p
+	push(s,2)
+	push(s,3)
+	push(s,4)
+	pop(s)
+	push(p,299)
+	push(p,300)
+	pop(p)
+	push(s,39)
+	pop(s)
+}
+
+func main(:void){
+    checkStack()
+}

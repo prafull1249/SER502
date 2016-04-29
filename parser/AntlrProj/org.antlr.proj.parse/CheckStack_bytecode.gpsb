@@ -1,0 +1,22 @@
+func_start checkStack
+treturn void
+istore 2
+push s
+istore 3
+push s
+istore 4
+push s
+pop s
+istore 299
+push p
+istore 300
+push p
+pop p
+istore 39
+push s
+pop s
+func_end
+func_start main
+treturn void
+call checkStack 2
+func_end
