@@ -8,7 +8,8 @@ public class FunctionClass {
     enum typeData  {
         INT,
         BOOL,
-        VOID
+        VOID,
+        STACK
     }
     private typeData returnType = typeData.VOID;
     private HashMap<String,typeData> paramMap = null;

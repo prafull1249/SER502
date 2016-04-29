@@ -1,0 +1,16 @@
+func checkScope(:void)
+{
+	int x
+	print x
+	while(x<10){
+		int x
+		x = x + 1
+		print x
+	}
+	print x
+}
+
+func main(:void){
+	checkScope()
+	
+}

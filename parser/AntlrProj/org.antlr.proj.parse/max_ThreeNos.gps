@@ -1,0 +1,27 @@
+func MaxThreeNos(int x , int y, int z:int)
+{
+	int ans
+	if(x<=y){
+		if(y>=z){
+			ans = y
+		}
+		else{
+			ans = z
+		}
+	}
+	else{
+		if(x>=z){
+				ans = x
+			}
+			else{
+				ans = z
+			}
+	}
+	return ans
+}
+
+func main(:void){
+    int result
+	result = MaxThreeNos(4,3,5)
+	print result
+}

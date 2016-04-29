@@ -1,16 +1,16 @@
 func checkStack(:void)
 {
-	Stack s
-	Stack p
+	stack s
+	stack p
+	int n,t
+
+	push(s,1)
 	push(s,2)
-	push(s,3)
-	push(s,4)
-	pop(s)
-	push(p,299)
-	push(p,300)
-	pop(p)
-	push(s,39)
-	pop(s)
+    n = n*1+2*3
+	n = pop(s)
+	print n
+    n = peek(s)
+	print n
 }
 
 func main(:void){

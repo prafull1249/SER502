@@ -66,6 +66,7 @@ iterationScheme : 'while' '(' condition ')' ;
 
 assignmentStatement : <variable>name '=' expression
                     | <variable>name '=' procedureCallStatement
+                    | <variable>name '=' stackStatement
                     ;
 
 procedureCallStatement : <procedure>name actualParameterPart ;

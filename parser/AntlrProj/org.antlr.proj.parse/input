@@ -1,21 +1,21 @@
-int n
-n= 0
-func testIf(int n:void)
+func factIter(int n:int)
 {
-    int temp
-    temp = -1
-    if(n>=1){
-        print n
-    }
-    else{
-        print temp
-    }
-    return temp
+   int prod
+   int ans
+   stack s,p,f
+   push(s,1)
+   pop(s)
+   prod = n
+   ans = 1
+   while(prod>=1){
+        ans = prod * ans
+        prod = prod - 1
+   }
+   return ans
 }
 
-int s
-s = 0
 func main(:void){
     int prod
-    testIf(9)
+    prod = factIter(5)
+    print prod
 }
