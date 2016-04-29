@@ -120,7 +120,7 @@ public class GPSCPU {
                             Symbol lhs = getVariable(variableName);
                             Symbol rhs = aFrame.operandStack.pop();
                             if(lhs.getType() != rhs.getType()){
-                                System.err.println("Error: Incompatible type /nExiting...");
+                                System.err.println("Error: Incompatible type \nExiting...");
                                 System.exit(0);
                             }else{
                                 //System.out.println("Assigning value "+variableName+": "+rhs.getValue());
@@ -396,6 +396,7 @@ public class GPSCPU {
                     case LOOP_END:{
                         // System.out.println(opcode.name());
                         ActivationFrame aFrame = activationFrameStack.peek();
+                        aFrame.blockStack.peek().symbolTable.clear();
                         if(aFrame.blockStack.peek().endIndex <= aFrame.blockStack.peek().startIndex) {
                             aFrame.blockStack.peek().endIndex = ip-1;
                         }
@@ -463,7 +464,7 @@ public class GPSCPU {
                             Symbol parameterPassed = aFrame.operandStack.pop();
 
                             if(parameterPassed.getType() != 0){
-                                System.err.println("Error: Type of parameter passed and defined does not match./nExiting");
+                                System.err.println("Error: Type of parameter passed and defined does not match.\nExiting");
                                 System.exit(0);
                             }
                             currentBlock.symbolTable.put(parameterName, parameterPassed);
@@ -482,7 +483,7 @@ public class GPSCPU {
                             Block currentBlock = aFrame.blockStack.peek();
                             Symbol parameterPassed = aFrame.operandStack.pop();
                             if(parameterPassed.getType() != 1){
-                                System.err.println("Error: Type of parameter passed and defined does not match./nExiting");
+                                System.err.println("Error: Type of parameter passed and defined does not match.\nExiting");
                                 System.exit(0);
                             }
                             currentBlock.symbolTable.put(parameterName, parameterPassed);
@@ -500,7 +501,7 @@ public class GPSCPU {
                         String currentFunctionName = aFrame.functionName;
 
                         if(returnValue.getType() != bytecode.getFunctions().get(currentFunctionName).getReturnType()){
-                            System.err.println("Error: Return type doesn't match with the definition./nExiting...");
+                            System.err.println("Error: Return type doesn't match with the definition.\nExiting...");
                             System.exit(0);
                         }
 
@@ -588,7 +589,14 @@ public class GPSCPU {
                         // creating variable of int type and adding it to the current block
                         Symbol sym = new Symbol(0);
                         Block currBlock = aFrame.blockStack.peek();
-                        currBlock.symbolTable.put(tokens[1], sym);
+
+                        if (currBlock.symbolTable.containsKey(tokens[1])){
+                            System.err.println("Variable "+tokens[1]+" already defined in scope. \nExiting...");
+                            System.exit(0);
+                        }else{
+                            currBlock.symbolTable.put(tokens[1], sym);
+                        }
+
 
                         break;
                     }
@@ -598,7 +606,13 @@ public class GPSCPU {
                         ActivationFrame aFrame = activationFrameStack.peek();
                         Symbol sym = new Symbol(1);
                         Block currBlock = aFrame.blockStack.peek();
-                        currBlock.symbolTable.put(tokens[1], sym);
+
+                        if (currBlock.symbolTable.containsKey(tokens[1])){
+                            System.err.println("Variable "+tokens[1]+" already defined in scope. \nExiting...");
+                            System.exit(0);
+                        }else{
+                            currBlock.symbolTable.put(tokens[1], sym);
+                        }
 
                         break;
                     }
@@ -729,26 +743,23 @@ public class GPSCPU {
                     case PUSH:{
                         ActivationFrame aFrame = activationFrameStack.peek();
                         String variableName = tokens[1];
-                        String val = tokens[2];
-                        if(isInt(val)){
-                            int value = Integer.parseInt(val);
-                            if(isVariableDefined(variableName)){
-                                Symbol lhs = getVariable(variableName);
-                                if(lhs.getType() != 2){
-                                    System.err.println("Error: Incompatible Stack Operation /nExiting...");
-                                    System.exit(0);
-                                }else{
-                                    //System.out.println("Assigning value "+variableName+": "+rhs.getValue());
-                                    Stack st = (Stack) lhs.getValue();
-                                    st.push(value);
-                                }
-                            }else{
-                                System.err.println("Error: Variable " + variableName + " not found");
-                                System.out.println("Exiting...");
+                        Symbol sym = aFrame.operandStack.pop();
+                        if(sym.getType() != 0){
+                            System.err.println("Error: Only Integers are allowed to push in to Stack \nExiting...");
+                            System.exit(0);
+                        }
+                        int value = (int)sym.getValue();
+                        if(isVariableDefined(variableName)){
+                            Symbol lhs = getVariable(variableName);
+                            if(lhs.getType() != 2){
+                                System.err.println("Error: Incompatible Stack Operation \nExiting...");
                                 System.exit(0);
+                            }else{
+                                Stack st = (Stack) lhs.getValue();
+                                st.push(value);
                             }
                         }else{
-                            System.err.println("Error: Invalid value being pushed to stack ");
+                            System.err.println("Error: Variable " + variableName + " not found");
                             System.out.println("Exiting...");
                             System.exit(0);
                         }
@@ -762,7 +773,7 @@ public class GPSCPU {
                         try{
                             Stack st = (Stack) lhs.getValue();
                             if(st.size() == 0){
-                                System.err.println("Error: Incompatible Stack Operation on empty Stack/nExiting...");
+                                System.err.println("Error: Incompatible Stack Operation on empty Stack\nExiting...");
                                 System.exit(0);
                             }else{
                                 int temp = (int) st.pop();
@@ -783,7 +794,7 @@ public class GPSCPU {
                         try{
                             Stack st = (Stack) lhs.getValue();
                             if(st.size() == 0){
-                                System.err.println("Error: Incompatible Stack Operation on empty Stack/nExiting...");
+                                System.err.println("Error: Incompatible Stack Operation on empty Stack\nExiting...");
                                 System.exit(0);
                             }else{
                                 int temp = (int) st.peek();
@@ -943,8 +954,16 @@ public class GPSCPU {
         if(isNumeric(operandString)){
             operand.setType(0);
             operand.setValue(Integer.parseInt(operandString));
+        }else if(isBoolean(operandString)){
+            operand.setType(1);
+            operand.setValue(Boolean.parseBoolean(operandString));
         }else{
-            operand = getVariable(operandString);
+            if(isVariableDefined(operandString)){
+                operand = getVariable(operandString);
+            }else{
+                System.err.println("Error: variable "+operandString+" not defined. \nExiting...");
+                System.exit(0);
+            }
         }
         return operand;
     }
@@ -953,14 +972,5 @@ public class GPSCPU {
         for(int i=stack.size()-1; i>=0; i--){
             System.out.print(stack.elementAt(i).getValue() + " ");
         }
-    }
-
-    public static boolean isInt(String s)
-    {
-        try
-        { int i = Integer.parseInt(s); return true; }
-
-        catch(NumberFormatException er)
-        { return false; }
     }
 }

@@ -1,5 +1,7 @@
 func_start checkStack
 treturn void
+stack s
+stack p
 istore 2
 push s
 istore 3
@@ -16,6 +18,7 @@ istore 39
 push s
 pop s
 func_end
+
 func_start main
 treturn void
 call checkStack 0
