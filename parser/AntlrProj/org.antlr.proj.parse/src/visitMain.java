@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -102,8 +101,8 @@ public class visitMain extends GrammarBaseVisitor<String>{
             */
 
             visitChildren(ctx);
-            System.out.println("The total functions are " + ctx.getChildCount());
-            System.out.println("Functions " + ctx.getChildCount());
+            //System.out.println("The total functions are " + ctx.getChildCount());
+            //System.out.println("Functions " + ctx.getChildCount());
             if(!isMainDefined)
                     throw new Exception("Main function not defined.!");
         } catch (Exception e) {
@@ -121,16 +120,16 @@ public class visitMain extends GrammarBaseVisitor<String>{
             for (int i =0;i< ctx.getChildCount();i++) {
                 if (ctx.getChild(i).getText().equals("{"))
                     if(ctx.getChild(ctx.getChildCount() - 1).getText().equals("}"))
-                        System.out.println("we are good");
+                    {}   //System.out.println("we are good");
                     else {
-                        System.out.println("no appropriate blocks for the blcoks.");
+                        //System.out.println("no appropriate blocks for the blcoks.");
                         throw new Exception("no appropriate blocks for the blcoks.");
                     }
             }
             visitChildren(ctx);
-            System.out.println("Subprogram" + ctx.getChildCount());
+            //System.out.println("Subprogram" + ctx.getChildCount());
             if (ctx.getChildCount() == 1) {
-                System.out.println(ctx.getChild(0));
+                //System.out.println(ctx.getChild(0));
             }
             writeToFile("func_end");
         }
@@ -145,7 +144,7 @@ public class visitMain extends GrammarBaseVisitor<String>{
         try {
            if( ctx.getChildCount() > 1 ){
 
-               System.out.println("Visiting expression - following are the kids \n 0 -" + ctx.getChild(0).getText() + " \n1 - " + ctx.getChild(1).getText()+ " \n2 - "+ ctx.getChild(2).getText());
+               //System.out.println("Visiting expression - following are the kids \n 0 -" + ctx.getChild(0).getText() + " \n1 - " + ctx.getChild(1).getText()+ " \n2 - "+ ctx.getChild(2).getText());
                if(ctx.getChild(0).getChildCount()>1 || ctx.getChild(2).getChildCount()>1)
                    throw new Exception("condition does  not allow expressions as operands");
                if(ctx.getChild(1).getText().equals(">")){
@@ -171,29 +170,29 @@ public class visitMain extends GrammarBaseVisitor<String>{
 
     @Override
     public String visitSimpleExpression(GrammarParser.SimpleExpressionContext ctx) {
-        System.out.println("SimpleExpression " + ctx.getChildCount());
-        System.out.println("SimpleExpression kids are" + ctx.getChild(0).getText());
+        //System.out.println("SimpleExpression " + ctx.getChildCount());
+        //System.out.println("SimpleExpression kids are" + ctx.getChild(0).getText());
         Stack<String> OpStack = new Stack<String>();
         Stack<String> operStack = new Stack<String>();
 
         if(ctx.getChildCount()>=3){
 
             for(int i = 0; i< ctx.getChildCount() ;i++) {
-                System.out.println("i child " + ctx.getChild(i).getText());
+                //System.out.println("i child " + ctx.getChild(i).getText());
                 if(ctx.getChild(i).getChildCount()>=1) {
                     if(ctx.getChild(i).getText().equals("+")  || ctx.getChild(i).getText().equals("-")) {
                         operStack.push(ctx.getChild(i).getText());
-                        System.out.println("pushing " + ctx.getChild(i).getText() + " in to stack");
+                        //System.out.println("pushing " + ctx.getChild(i).getText() + " in to stack");
                     }
                     else if(ctx.getChild(i).getText().equals("<=")
                             || ctx.getChild(i).getText().equals(">=") || ctx.getChild(i).getText().equals("<")
                             || ctx.getChild(i).getText().equals(">") || ctx.getChild(i).getText().equals("==")) {
                         operStack.push(ctx.getChild(i).getText());
-                        System.out.println("pushing " + ctx.getChild(i).getText() + " in to stack");
+                        //System.out.println("pushing " + ctx.getChild(i).getText() + " in to stack");
                     }
                     else{
                         OpStack.push(null);
-                        System.out.println("visiting chidren of "+ ctx.getChild(i).getText());
+                        //System.out.println("visiting chidren of "+ ctx.getChild(i).getText());
                         visitTerm((GrammarParser.TermContext) ctx.getChild(i));
                     }
                 }
@@ -208,7 +207,7 @@ public class visitMain extends GrammarBaseVisitor<String>{
                                 writeToFile("sub");
                             OpStack.push(null);
                         } else {
-                            System.out.println("error");
+                            //System.out.println("error");
                             throw new Exception("expression is not appropriate");
                         }
                     } catch (IOException e) {
@@ -217,7 +216,7 @@ public class visitMain extends GrammarBaseVisitor<String>{
                         e.printStackTrace();
                     }
                 }
-                System.out.println("should pop out of the stack here..!");
+                //System.out.println("should pop out of the stack here..!");
             }
         } else
             return super.visitSimpleExpression(ctx);
@@ -227,10 +226,10 @@ public class visitMain extends GrammarBaseVisitor<String>{
 
     @Override
     public String visitTerm(GrammarParser.TermContext ctx) {
-        System.out.println("visitTerm" + ctx.getChildCount());
+        //System.out.println("visitTerm" + ctx.getChildCount());
         Stack<String> OpStack = new Stack<String>();
         Stack<String> operStack = new Stack<String>();
-        System.out.println("visiting the child " + ctx.getChild(0).getText());
+        //System.out.println("visiting the child " + ctx.getChild(0).getText());
         if(ctx.getChildCount()==1){
 
             if(ctx.getChild(0).getChildCount()>2){
@@ -245,7 +244,7 @@ public class visitMain extends GrammarBaseVisitor<String>{
                         if(!mapFunc.get(mapFunc.getKey(mapFunc.size()-1)).getParamMap().containsKey(var) &&
                                 !mapFunc.get(mapFunc.getKey(mapFunc.size()-1)).getLocalMap().containsKey(var) )
                         {
-                            throw new Exception("Variable " + var + " not defined..!");
+                            //throw new Exception("Variable " + var + " not defined..!");
                         }
                         writeToFile("store " + var);
                     }
@@ -261,7 +260,7 @@ public class visitMain extends GrammarBaseVisitor<String>{
 
         }
         else if(ctx.getChildCount()>2){
-            System.out.println(ctx.getChild(0).getText()    );
+            //System.out.println(ctx.getChild(0).getText()    );
             for(int i = 0; i< ctx.getChildCount() ;i++){
                 String child = ctx.getChild(i).getText();
                 if(child.equals("*") || child.equals("/") || child.equals("%")){
@@ -270,7 +269,7 @@ public class visitMain extends GrammarBaseVisitor<String>{
                 else if(ctx.getChild(i).getChildCount()>1){
                     visitFactor((GrammarParser.FactorContext) ctx.getChild(i));
                     OpStack.push(null);
-                    System.out.println("Factor is visitied");
+                    //System.out.println("Factor is visitied");
                 }else{
                     OpStack.push(child);
                 }
@@ -300,7 +299,7 @@ public class visitMain extends GrammarBaseVisitor<String>{
                             OpStack.push(null);
                         }
                         else{
-                            System.out.println("error");
+                            //System.out.println("error");
                             throw new Exception("expression is not appropriate");
                         }
                     } catch (IOException e) {
@@ -321,9 +320,9 @@ public class visitMain extends GrammarBaseVisitor<String>{
             Stack<String>  st = new Stack<String>();
             Stack<String>  stIf = new Stack<String>();
             while(i<ctx.getChildCount()){
-                System.out.println("while current child is"+ctx.getChild(i).getText());
+                //System.out.println("while current child is"+ctx.getChild(i).getText());
                 if(ctx.getChild(i).getText().equals("if") || ctx.getChild(i).getText().equals("elif") || ctx.getChild(i).getText().equals("else")  ) {
-                    System.out.println("if elif else found");
+                    //System.out.println("if elif else found");
                     stIf.push(ctx.getChild(i).getText());
 
                     if(ctx.getChild(i).getText().equals("else")){
@@ -394,32 +393,32 @@ public class visitMain extends GrammarBaseVisitor<String>{
 
     @Override
     public String visitFactor(GrammarParser.FactorContext ctx) {
-        System.out.println("visitFactor" + ctx.getChildCount());
+        //System.out.println("visitFactor" + ctx.getChildCount());
         return super.visitFactor(ctx);
     }
 
     @Override
     public String visitName(GrammarParser.NameContext ctx) {
-        System.out.println("visitName" + ctx.getChildCount());
+        //System.out.println("visitName" + ctx.getChildCount());
         return super.visitName(ctx);
     }
 
     @Override
     public String visitRelationalOperator(GrammarParser.RelationalOperatorContext ctx) {
-        System.out.println("visitRelationalOperator "+ ctx.getChild(0).getText()+ " " + ctx.getChildCount());
+        //System.out.println("visitRelationalOperator "+ ctx.getChild(0).getText()+ " " + ctx.getChildCount());
         return super.visitRelationalOperator(ctx);
     }
 
     @Override
     public String visitMultiplyingOperator(GrammarParser.MultiplyingOperatorContext ctx) {
-        System.out.println("multiply operator" + ctx.getChildCount());
+        //System.out.println("multiply operator" + ctx.getChildCount());
         return super.visitMultiplyingOperator(ctx);
     }
 
     @Override
     public String visitSubprogramSpecification(GrammarParser.SubprogramSpecificationContext ctx) {
 
-        System.out.println("subprogramSpecification "+ ctx.getText() +" " + ctx.getChildCount());
+        //System.out.println("subprogramSpecification "+ ctx.getText() +" " + ctx.getChildCount());
 
         try {
             if(!mapFunc.containsKey(ctx.getChild(1).getText()))
@@ -461,7 +460,7 @@ public class visitMain extends GrammarBaseVisitor<String>{
              else{
                  throw new Exception("error in stackstatement");
              }
-             System.out.println("push  "+ ctx.getChild(ctx.getChildCount()-2).getText() +" " + ctx.getChildCount());
+             //System.out.println("push  "+ ctx.getChild(ctx.getChildCount()-2).getText() +" " + ctx.getChildCount());
         } catch (IOException e) {
             e.printStackTrace();
              return null;
@@ -487,7 +486,7 @@ public class visitMain extends GrammarBaseVisitor<String>{
     public String visitFormalPart(GrammarParser.FormalPartContext ctx) {
         try {
             writeToFile("treturn "+ctx.getChild(ctx.getChildCount()-2).getText());
-            System.out.println("formal part "+ ctx.getChild(ctx.getChildCount()-2).getText() +" " + ctx.getChildCount());
+            //System.out.println("formal part "+ ctx.getChild(ctx.getChildCount()-2).getText() +" " + ctx.getChildCount());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -496,14 +495,14 @@ public class visitMain extends GrammarBaseVisitor<String>{
 
     @Override
     public String visitDeclarativePart(GrammarParser.DeclarativePartContext ctx) {
-        System.out.println("visitDeclarativePart: " + ctx.getChildCount());
+        //System.out.println("visitDeclarativePart: " + ctx.getChildCount());
         return super.visitDeclarativePart(ctx);
     }
 
     @Override
     public String visitObjectDeclaration(GrammarParser.ObjectDeclarationContext ctx) {
         try {
-            System.out.println("visitObjectDeclarationPart: " + ctx.getChild(0).getText() + " " + ctx.getChild(1).getText() + " " + ctx.getChildCount());
+            //System.out.println("visitObjectDeclarationPart: " + ctx.getChild(0).getText() + " " + ctx.getChild(1).getText() + " " + ctx.getChildCount());
             String[] id = ctx.getChild(1).getText().split(",");
             for (String anId : id) {
                 if(mapFunc.get(mapFunc.getKey(mapFunc.size()-1)).getParamMap().containsKey(anId) ||
@@ -526,7 +525,7 @@ public class visitMain extends GrammarBaseVisitor<String>{
         }
         catch(Exception e) {
             e.printStackTrace();
-            System.out.println("exception encountered..!");
+            //System.out.println("exception encountered..!");
         }
         return super.visitObjectDeclaration(ctx);
     }
@@ -542,7 +541,7 @@ public class visitMain extends GrammarBaseVisitor<String>{
                 mapFunc.get(mapFunc.getKey(mapFunc.size()-1)).populateParamMap(ctx.getChild(1).getText(),1);
                 writeToFile("bparam "+ctx.getChild(1).getText());
             }
-            //System.out.println("parameter specification "+ ctx.getChild(0).getText() +" " + ctx.getChild(1).getText() +" " + ctx.getChildCount());
+            ////System.out.println("parameter specification "+ ctx.getChild(0).getText() +" " + ctx.getChild(1).getText() +" " + ctx.getChildCount());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -576,7 +575,7 @@ public class visitMain extends GrammarBaseVisitor<String>{
                 //visitActualParameterPart((GrammarParser.ActualParameterPartContext) ctx.getChild(1));
                 String temp = ctx.getChild(1).getText();
                 String[] params = temp.substring(1,temp.length()-1).split(",");
-                System.out.println("params = "+ Arrays.deepToString(params));
+                //System.out.println("params = "+ Arrays.deepToString(params));
                 int paramLen = 0;
                 for(int i=0;i< params.length;i++){
                     if(params[i].length()!=0)
@@ -591,8 +590,8 @@ public class visitMain extends GrammarBaseVisitor<String>{
                         actualParamLen = actualParamLen -1;
                 }
                 if(paramLen!=actualParamLen) {
-                    System.out.println("The mapfunc has "+actualParamLen);
-                    System.out.println("params.length = "+ paramLen);
+                    ////System.out.println("The m////System.out "+actualParamLen);
+                    //System.out.println("params.length = "+ paramLen);
                     throw new Exception("Number of parameters of Function prototype and function call do not match.!");
                 }
                 visitActualParameterPart((GrammarParser.ActualParameterPartContext) ctx.getChild(1));
