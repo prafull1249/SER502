@@ -2,49 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84cadbdd-3dda-4288-aa20-d919e40bfb72" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarLexer.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarLexer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ActualParameterPartContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ActualParameterPartContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ArrayTypeDefinitionContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ArrayTypeDefinitionContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$AssignmentStatementContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$AssignmentStatementContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$BasicDeclarationContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$BasicDeclarationContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$BinaryAddingOperatorContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$BinaryAddingOperatorContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$CompoundStatementContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$CompoundStatementContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ConditionContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ConditionContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$DeclarativePartContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$DeclarativePartContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$EnumerationTypeDefinitionContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$EnumerationTypeDefinitionContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ExpressionContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ExpressionContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$FactorContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$FactorContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$FormalPartContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$FormalPartContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$GlobalStatementContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$GlobalStatementContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$IdentifierListContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$IdentifierListContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$IfStatementContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$IfStatementContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$IndexContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$IndexContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$IterationSchemeContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$IterationSchemeContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$LoopStatementContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$LoopStatementContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$MultiplyingOperatorContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$MultiplyingOperatorContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$NameContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$NameContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ObjectDeclarationContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ObjectDeclarationContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ParameterSpecificationContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ParameterSpecificationContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$PrintStatementContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$PrintStatementContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ProcedureCallStatementContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ProcedureCallStatementContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ProgramBodyContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ProgramBodyContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$RelationalOperatorContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$RelationalOperatorContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ReturnStatementContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$ReturnStatementContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$SequenceOfStatementsContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$SequenceOfStatementsContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$SimpleExpressionContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$SimpleExpressionContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$SimpleStatementContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$SimpleStatementContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$StackStatementContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$StackStatementContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$StatementContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$StatementContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$SubprogramBodyContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$SubprogramBodyContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$SubprogramSpecificationContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$SubprogramSpecificationContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$TermContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$TermContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$TypeDeclarationContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$TypeDeclarationContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$TypeDefinitionContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$TypeDefinitionContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$UnaryAddingOperatorContext.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser$UnaryAddingOperatorContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/GrammarParser.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/org.antlr.proj.parse/src/input_ifelse" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../out/production/GPS/GPSCPU$1.class" afterPath="$PROJECT_DIR$/../../out/production/GPS/GPSCPU$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../out/production/GPS/GPSCPU.class" afterPath="$PROJECT_DIR$/../../out/production/GPS/GPSCPU.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../out/production/GPS/GPSVirtualMachine.class" afterPath="$PROJECT_DIR$/../../out/production/GPS/GPSVirtualMachine.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../out/production/GPS/Opcode.class" afterPath="$PROJECT_DIR$/../../out/production/GPS/Opcode.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/MainParser.class" afterPath="$PROJECT_DIR$/out/production/org.antlr.proj.parse/MainParser.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../FactorialIterative.gpsb" afterPath="$PROJECT_DIR$/../../FactorialIterative.gpsb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../FactorialRecursive.gspb" afterPath="$PROJECT_DIR$/../../FactorialRecursive.gspb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../NestedIfElse.gpsb" afterPath="$PROJECT_DIR$/../../NestedIfElse.gpsb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/org.antlr.proj.parse/CheckStack_bytecode.gpsb" afterPath="$PROJECT_DIR$/org.antlr.proj.parse/CheckStack_bytecode.gpsb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/org.antlr.proj.parse/bytecode_sumfirstOddNo.gpsb" afterPath="$PROJECT_DIR$/org.antlr.proj.parse/bytecode_sumfirstOddNo.gpsb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/org.antlr.proj.parse/input_ifelse" afterPath="$PROJECT_DIR$/org.antlr.proj.parse/input_ifelse" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/org.antlr.proj.parse/src/MainParser.java" afterPath="$PROJECT_DIR$/org.antlr.proj.parse/src/MainParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/org.antlr.proj.parse/src/visitMain.java" afterPath="$PROJECT_DIR$/org.antlr.proj.parse/src/visitMain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/GPSCPU.java" afterPath="$PROJECT_DIR$/../../src/GPSCPU.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/GPSVirtualMachine.java" afterPath="$PROJECT_DIR$/../../src/GPSVirtualMachine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/Opcode.java" afterPath="$PROJECT_DIR$/../../src/Opcode.java" />
     </list>
     <ignored path="AntlrProj.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -91,8 +66,8 @@
       <file leaf-file-name="MainParser.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/org.antlr.proj.parse/src/MainParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7042017">
-              <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.29579833">
+              <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -619,7 +594,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31515813" sideWeight="0.3609375" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31515813" sideWeight="0.6390625" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31515813" sideWeight="0.6390625" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1062,8 +1037,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/org.antlr.proj.parse/src/MainParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7042017">
-          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.29579833">
+          <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

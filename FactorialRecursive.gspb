@@ -21,10 +21,12 @@ mul
 assign prod
 return prod
 func_end
+
 func_start main
 treturn void
 idec prod
 istore 5
 call fact 1
 assign prod
+print prod
 func_end

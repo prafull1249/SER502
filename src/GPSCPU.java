@@ -151,6 +151,22 @@ public class GPSCPU {
                         break;
                     }
 
+                    case MOD: {
+                        // System.out.println(opcode.name());
+
+                        ActivationFrame aFrame = activationFrameStack.peek();
+                        Symbol operand1 = aFrame.operandStack.pop();
+                        Symbol operand2 = aFrame.operandStack.pop();
+                        if (operand1.getType() != 0 || operand2.getType() != 0) {
+                            System.err.println("Error: Modulus of only integers are supported");
+                            System.out.println("Exiting..");
+                            System.exit(0);
+                        }
+                        aFrame.operandStack.push(new Symbol(0, (int)operand2.getValue() % (int)operand1.getValue()));
+
+                        break;
+                    }
+
                     case SUB: {
                         // System.out.println(opcode.name());
 
@@ -644,10 +660,14 @@ public class GPSCPU {
                         if(ifExpressionResult.getType()==1){
                             aFrame.blockStack.push(new Block());
                             if((int)ifExpressionResult.getValue() == 0){
-                                String ifBlockStatement = code.get(++ip);
+                                String ifBlockStatement = code.get(ip);
                                 String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
+
                                 int count = 0;
-                                while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_BLOCK_END.toString())) || count != 0){
+                                if(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_START.toString())){
+                                    count++;
+                                }
+                                while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_BLOCK_END.toString()) && count == 0)){
                                     ifBlockStatement = code.get(++ip);
                                     ifBlockStatementTokens = ifBlockStatement.split(" ");
 
@@ -687,10 +707,13 @@ public class GPSCPU {
                         if(ifExpressionResult.getType()==1){
                             aFrame.blockStack.push(new Block());
                             if((int)ifExpressionResult.getValue() == 1){
-                                String ifBlockStatement = code.get(++ip);
+                                String ifBlockStatement = code.get(ip);
                                 String[] ifBlockStatementTokens = ifBlockStatement.split(" ");
                                 int count = 0;
-                                while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.ELSE_BLOCK_END.toString())) || count != 0){
+                                if(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.IF_START.toString())){
+                                    count++;
+                                }
+                                while(!(ifBlockStatementTokens[0].equalsIgnoreCase(Opcode.ELSE_BLOCK_END.toString()) && count == 0)){
                                     ifBlockStatement = code.get(++ip);
                                     ifBlockStatementTokens = ifBlockStatement.split(" ");
 
@@ -836,6 +859,10 @@ public class GPSCPU {
                 valid = true;
                 break;
             }
+        }
+
+        if(!valid){
+            System.out.println("Error in isValidOpcode for: "+ str);
         }
         return valid;
     }

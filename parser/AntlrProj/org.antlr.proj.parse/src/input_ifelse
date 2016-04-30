@@ -7,7 +7,4 @@ func fact(int n, int ib:int){
 
 }
 
-int main(:void){
-    fact(0,3)
-}
 

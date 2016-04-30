@@ -13,6 +13,10 @@ public class MainParser {
         ANTLRInputStream input  = new ANTLRFileStream("C:\\New folder\\AntlrProj\\org.antlr.proj.parse\\FactIterative.gps");
         //ANTLRInputStream input  = new ANTLRFileStream(args[0]);
         //System.out.println(input.toString());
+        //ANTLRInputStream input  = new ANTLRFileStream(args[0]);
+
+        //ANTLRInputStream input  = new ANTLRFileStream("C:\\Users\\Prafull\\work\\SER502\\parser\\AntlrProj\\org.antlr.proj.parse\\intermediate_sumfirstOddNo");
+        //System.out.println(input.toString());
         GrammarLexer lexer_f = new GrammarLexer(input);
         System.out.println("Lexing done..");
         CommonTokenStream tokens_f = new CommonTokenStream(lexer_f);

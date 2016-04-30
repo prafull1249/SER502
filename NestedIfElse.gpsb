@@ -1,40 +1,48 @@
-func_start fact
+func_start MaxThreeNos
 treturn int
-iparam n
-idec prod
-istore 1
-assign prod
-istore 1
-stack s
-push s 5
-pop s
-lte n 0
+iparam x
+iparam y
+iparam z
+idec ans
+lte x y
 if_start
 if_block_start
-return 0
+gte y z
+if_start
+if_block_start
+store y
+assign ans
 if_block_end
 else_block_start
-store n
-istore 1
-add
-assign n
-lte n 5
+store z
+assign ans
+else_block_end
+if_end
+if_block_end
+else_block_start
+gte x z
 if_start
 if_block_start
-istore 0
-assign n
+store x
+assign ans
 if_block_end
+else_block_start
+store z
+assign ans
+else_block_end
 if_end
 else_block_end
 if_end
-return prod
+return ans
 func_end
 
 func_start main
 treturn void
+idec result
+istore 4
+istore 3
 istore 5
-call fact 1
-idec prod
-assign prod
-print prod
+call MaxThreeNos 3
+assign result
+print result
 func_end
